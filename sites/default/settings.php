@@ -23,3 +23,11 @@ $local_settings = __DIR__ . "/settings.local.php";
 if (file_exists($local_settings)) {
   include $local_settings;
 }
+
+/**
+ * Environment Indicator Settings
+ * /admin/config/development/environment-indicator
+ */
+$config['environment_indicator.indicator']['bg_color'] = '#d10c0c';
+$config['environment_indicator.indicator']['fg_color'] = '#fcf2f2';
+$config['environment_indicator.indicator']['name'] = 'Dev Environment';
