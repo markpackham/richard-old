@@ -2,6 +2,7 @@
 sites/*/files
 sites/*/private
 files/*
+.idea/*
 
 # Avoid accidental modification of pantheon.upstream.yml in sites
 # created from this upstream
