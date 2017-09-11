@@ -6,3 +6,8 @@ ul.sf-menu a{
     padding: 1em;
     background-color: #FFFFFF;
 }
+
+.region-footer .navbar-nav li a{
+    padding: 10px;
+    font-size: 13px;
+}
