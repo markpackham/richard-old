@@ -1,5 +1,15 @@
-.navbar-nav, ul.sf-menu a, .region-footer .navbar-nav li a {
-    background-color: #e4f4ad;
+#block-bootstrap-sub-account-menu a{
+    color: #23527C;
+    padding: 10px;
+}
+
+.navbar-brand{
+    display: none;
+}
+
+.navbar-nav, ul.sf-menu a{
+    background-color: #ebf4bc;
+    border: 1px solid #23527C;
 }
 
 ul.sf-menu a {
@@ -11,7 +21,7 @@ ul.sf-menu a {
     padding: 10px;
 }
 
-
+/* View Pages */
 .views-element-container label, .views-element-container .form-actions{
     padding: 10px;
 }
