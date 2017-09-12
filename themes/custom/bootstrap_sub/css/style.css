@@ -1,14 +1,17 @@
-/**
- * Place your custom styles here.
- */
+.navbar-nav, ul.sf-menu a, .region-footer .navbar-nav li a {
+    background-color: #e4f4ad;
+}
 
 ul.sf-menu a {
     padding: 1em;
-    background-color: #DFF0D8;
 }
 
-.region-footer .navbar-nav li a {
+#block-bootstrap-sub-copyrightfooterblock, .region-footer .navbar-nav li a{
     font-size: 13px;
     padding: 10px;
-    background-color: #DFF0D8;
+}
+
+
+.views-element-container label, .views-element-container .form-actions{
+    padding: 10px;
 }
