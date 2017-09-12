@@ -8,6 +8,7 @@
 }
 
 .navbar-nav, ul.sf-menu a{
+	font-size: 13px;
     background-color: #ebf4bc;
     border: 1px solid #23527C;
 }
@@ -17,7 +18,7 @@ ul.sf-menu a {
 }
 
 #block-bootstrap-sub-copyrightfooterblock, .region-footer .navbar-nav li a{
-    font-size: 13px;
+    font-size: 12px;
     padding: 10px;
 }
 
