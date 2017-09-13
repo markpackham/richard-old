@@ -1,14 +1,27 @@
-#block-bootstrap-sub-account-menu a{
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 23px;
+}
+
+.page-header {
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+}
+
+#block-bootstrap-sub-account-menu a {
     color: #23527C;
     padding: 10px;
 }
 
-.navbar-brand{
+.navbar-brand {
     display: none;
 }
 
-.navbar-nav, ul.sf-menu a{
-	font-size: 13px;
+.navbar-nav, ul.sf-menu a {
+    font-size: 13px;
     background-color: #ebf4bc;
     border: 1px solid #23527C;
 }
@@ -17,12 +30,27 @@ ul.sf-menu a {
     padding: 1em;
 }
 
-#block-bootstrap-sub-copyrightfooterblock, .region-footer .navbar-nav li a{
+#block-bootstrap-sub-copyrightfooterblock, .region-footer .navbar-nav li a {
     font-size: 12px;
     padding: 10px;
 }
 
 /* View Pages */
-.views-element-container label, .views-element-container .form-actions{
+.views-element-container label, .views-element-container .form-actions {
     padding: 10px;
 }
+
+/* Homepage slideshow */
+
+#block-bootstrap-sub-views-block-homepage-slide-view-block-block-1 {
+    padding-bottom: 20px;
+}
+
+@media (min-width: 480px) {
+    #block-bootstrap-sub-views-block-homepage-slide-view-block-block-1 {
+        width: 75%;
+    }
+}
+
+
+
