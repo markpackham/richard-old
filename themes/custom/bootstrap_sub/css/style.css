@@ -28,6 +28,7 @@ h2 {
     font-size: 13px;
     background-color: #ebf4bc;
     border: 1px solid #23527C;
+    box-shadow: 1px 1px #838487;
 }
 
 ul.sf-menu a {
