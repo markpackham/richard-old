@@ -11,6 +11,10 @@ h2 {
     margin-bottom: 10px;
 }
 
+.footer{
+    padding: 10px 0px;
+}
+
 #block-bootstrap-sub-account-menu a {
     color: #23527C;
     padding: 10px;
@@ -46,11 +50,14 @@ ul.sf-menu a {
     padding-bottom: 20px;
 }
 
+#block-bootstrap-sub-views-block-homepage-slide-view-block-block-1 p{
+    padding: 10px 0px;
+}
+
 @media (min-width: 480px) {
     #block-bootstrap-sub-views-block-homepage-slide-view-block-block-1 {
         width: 75%;
     }
 }
-
 
 
