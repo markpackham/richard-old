@@ -15,6 +15,10 @@ h2 {
     padding: 10px 0px;
 }
 
+.navbar-right{
+    float: left !important;
+}
+
 #block-bootstrap-sub-account-menu a {
     color: #23527C;
     padding: 10px;
@@ -66,4 +70,3 @@ ul.sf-menu a {
 #block-bootstrap-sub-views-block-articles-view-block-latest-articles-view-block p {
     padding: 10px 0px;
 }
-
