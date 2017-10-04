@@ -1,6 +1,7 @@
 <?php
 
 use BackupMigrate\Core\Config\Config;
+use BackupMigrate\Core\Services\BackupMigrate;
 use BackupMigrate\Core\Main\BackupMigrateInterface;
 use Drupal\backup_migrate\Entity\Destination;
 use Drupal\backup_migrate\Entity\Schedule;
@@ -8,10 +9,12 @@ use Drupal\backup_migrate\Entity\Source;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\ClassLoader\Psr4ClassLoader;
 
+// @TODO apparently this isn't working on Windows machines
+// see [#2913021]
+
 // Autoload the required classes
 $loader = new Psr4ClassLoader();
 $loader->addPrefix('BackupMigrate\\Core\\', __DIR__.'/lib/backup_migrate_core/src');
-// @TODO use the standard drupal module namespace
 $loader->addPrefix('BackupMigrate\\Drupal\\', __DIR__.'/src');
 $loader->register();
 
@@ -130,6 +133,8 @@ function backup_migrate_backup_migrate_service_object_alter(BackupMigrateInterfa
     $user = \Drupal::currentUser();
     if ($user->hasPermission('Access backup files'))
     $destinations->add('download', new \BackupMigrate\Drupal\Destination\DrupalBrowserDownloadDestination(new Config(['name' => t('Download')])));
+    // Add an upload destination.
+    $destinations->add('upload', new \BackupMigrate\Drupal\Destination\DrupalBrowserUploadDestination(new Config(['name' => t('Upload')])));
   }
 
   // Add a file naming filter.
