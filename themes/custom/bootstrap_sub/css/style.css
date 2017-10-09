@@ -86,3 +86,8 @@ ul.sf-menu a {
 #block-bootstrap-sub-views-block-articles-view-block-latest-articles-view-block p {
     padding: 10px 0px;
 }
+
+/*Webform on Contact*/
+#edit-phone {
+	display: block;
+}
