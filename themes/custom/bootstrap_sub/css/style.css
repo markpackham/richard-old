@@ -19,16 +19,18 @@ img {
 }
 
 #block-bootstrap-sub-views-block-articles-view-block-latest-articles-view-block p,
-#edit-actions-submit,
 .field--name-body,
 .footer,
-.paragraph--type--paragraph-text-body,
-.webform-button--submit {
+.paragraph--type--paragraph-text-body {
     padding: 10px 0px;
 }
 
 #block-header-banner-block {
     padding: 10px 5px;
+}
+
+#edit-actions-submit{
+    margin: 10px 0px;
 }
 
 .page-header {
