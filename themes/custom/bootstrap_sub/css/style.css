@@ -82,7 +82,7 @@ ul.sf-menu a {
 }
 
 /* Paragraphs */
-.paragraph--type--paragraph-text-body, .webform-button--submit {
+.paragraph--type--paragraph-text-body, .webform-button--submit, .field--name-body {
     padding: 10px 0px;
 }
 
