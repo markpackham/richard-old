@@ -68,6 +68,10 @@ ul.sf-menu a {
     padding: 10px;
 }
 
+.well.region.region-sidebar-second{
+    padding: 16px 16px 0px 16px;
+}
+
 /* View Pages */
 .views-element-container label, .views-element-container .form-actions {
     padding: 10px;
