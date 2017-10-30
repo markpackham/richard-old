@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\webform\Form\AdminConfig;
+namespace Drupal\webform\Form\AdminSettings;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Configure webform admin settings for libraries.
  */
-class WebformAdminConfigLibrariesForm extends WebformAdminConfigBaseForm {
+class WebformAdminSettingsLibrariesForm extends WebformAdminSettingsBaseForm {
 
   /**
    * The libraries manager.
@@ -30,11 +30,11 @@ class WebformAdminConfigLibrariesForm extends WebformAdminConfigBaseForm {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'webform_admin_config_libraries_form';
+    return 'webform_admin_settings_libraries_form';
   }
 
   /**
-   * Constructs a WebformAdminConfigLibrariesForm object.
+   * Constructs a WebformAdminSettingsLibrariesForm object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.
@@ -68,11 +68,6 @@ class WebformAdminConfigLibrariesForm extends WebformAdminConfigBaseForm {
       '#title' => $this->t('CSS / JavaScript'),
       '#open' => TRUE,
       '#tree' => TRUE,
-    ];
-    $form['assets']['description'] = [
-      '#type' => 'webform_message',
-      '#message_message' => $this->t('The below CSS and JavasScript will be loaded on all webform pages.'),
-      '#message_type' => 'info',
     ];
     $form['assets']['css'] = [
       '#type' => 'webform_codemirror',
@@ -138,7 +133,7 @@ class WebformAdminConfigLibrariesForm extends WebformAdminConfigBaseForm {
     $form['libraries']['select_message'] = [
       '#type' => 'webform_message',
       '#message_type' => 'warning',
-      '#message_message' => $this->t('<a href=":select2_href">Select2</a> and <a href=":chosen_href">Chosen</a> provide very similar functionality, most websites should only have one of these libraries enabled.', $t_args),
+      '#message_message' => $this->t('<a href=":select2_href">Select2</a> and <a href=":chosen_href">Chosen</a> provide very similar functionality, Most websites should only have one of these libraries enabled.', $t_args),
       '#states' => [
         'visible' => [
           ':input[name="libraries[excluded_libraries][jquery.select2]"]' => ['checked' => TRUE],

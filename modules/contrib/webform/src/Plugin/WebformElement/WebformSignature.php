@@ -23,12 +23,12 @@ class WebformSignature extends WebformElementBase {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    $properties = [
+    $default_properties = [
       // General settings.
       'description' => $this->t('Sign above'),
     ] + parent::getDefaultProperties();
-    unset($properties['disabled']);
-    return $properties;
+    unset($default_properties['disabled']);
+    return $default_properties;
   }
 
   /**
@@ -138,8 +138,8 @@ class WebformSignature extends WebformElementBase {
       '#type' => 'radios',
       '#title' => $this->t('Signature format'),
       '#options' => [
-        'image' => $this->t('Image, the signature\'s <a href=":href">Data URI</a>.', [':href' => 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs']),
-        'status' => $this->t("Status, displays 'signed' or 'no signed'"),
+        'image' => $this->t('Image: The signature\'s <a href=":href">Data URI</a>.', [':href' => 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs']),
+        'status' => $this->t("Status: 'signed' or 'no signed'."),
       ],
       '#default_value' => $export_options['signature_format'],
     ];

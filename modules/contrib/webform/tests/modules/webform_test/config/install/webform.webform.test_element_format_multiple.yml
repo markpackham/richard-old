@@ -1270,8 +1270,6 @@ elements: |
           include_anonymous: true
         '#multiple': true
         '#default_value':
-          - 4
-          - 3
           - 1
         '#format_items': comma
       entity_autocomplete_semicolon:
@@ -1283,8 +1281,6 @@ elements: |
           include_anonymous: true
         '#multiple': true
         '#default_value':
-          - 4
-          - 3
           - 1
         '#format_items': semicolon
       entity_autocomplete_and:
@@ -1296,8 +1292,6 @@ elements: |
           include_anonymous: true
         '#multiple': true
         '#default_value':
-          - 4
-          - 3
           - 1
         '#format_items': and
       entity_autocomplete_ol:
@@ -1309,8 +1303,6 @@ elements: |
           include_anonymous: true
         '#multiple': true
         '#default_value':
-          - 4
-          - 3
           - 1
         '#format_items': ol
       entity_autocomplete_ul:
@@ -1322,8 +1314,6 @@ elements: |
           include_anonymous: true
         '#multiple': true
         '#default_value':
-          - 4
-          - 3
           - 1
         '#format_items': ul
     webform_entity_checkboxes:
@@ -1483,52 +1473,57 @@ elements: |
       webform_term_checkboxes_comma:
         '#type': webform_term_checkboxes
         '#title': 'Term checkboxes (Comma)'
+        '#options_display': side_by_side
         '#vocabulary': tags
         '#multiple': true
         '#default_value':
-          - 13
-          - 7
-          - 12
+          - 49
+          - 33
+          - 21
         '#format_items': comma
       webform_term_checkboxes_semicolon:
         '#type': webform_term_checkboxes
         '#title': 'Term checkboxes (Semicolon)'
+        '#options_display': side_by_side
         '#vocabulary': tags
         '#multiple': true
         '#default_value':
-          - 13
-          - 7
-          - 12
+          - 49
+          - 33
+          - 21
         '#format_items': semicolon
       webform_term_checkboxes_and:
         '#type': webform_term_checkboxes
         '#title': 'Term checkboxes (And)'
+        '#options_display': side_by_side
         '#vocabulary': tags
         '#multiple': true
         '#default_value':
-          - 13
-          - 7
-          - 12
+          - 49
+          - 33
+          - 21
         '#format_items': and
       webform_term_checkboxes_ol:
         '#type': webform_term_checkboxes
         '#title': 'Term checkboxes (Ordered list)'
+        '#options_display': side_by_side
         '#vocabulary': tags
         '#multiple': true
         '#default_value':
-          - 13
-          - 7
-          - 12
+          - 49
+          - 33
+          - 21
         '#format_items': ol
       webform_term_checkboxes_ul:
         '#type': webform_term_checkboxes
         '#title': 'Term checkboxes (Unordered list)'
+        '#options_display': side_by_side
         '#vocabulary': tags
         '#multiple': true
         '#default_value':
-          - 13
-          - 7
-          - 12
+          - 49
+          - 33
+          - 21
         '#format_items': ul
     webform_term_select:
       '#type': details
@@ -1539,9 +1534,9 @@ elements: |
         '#vocabulary': tags
         '#multiple': true
         '#default_value':
-          - 13
-          - 7
-          - 12
+          - 49
+          - 33
+          - 21
         '#format_items': comma
       webform_term_select_semicolon:
         '#type': webform_term_select
@@ -1549,9 +1544,9 @@ elements: |
         '#vocabulary': tags
         '#multiple': true
         '#default_value':
-          - 13
-          - 7
-          - 12
+          - 49
+          - 33
+          - 21
         '#format_items': semicolon
       webform_term_select_and:
         '#type': webform_term_select
@@ -1559,9 +1554,9 @@ elements: |
         '#vocabulary': tags
         '#multiple': true
         '#default_value':
-          - 13
-          - 7
-          - 12
+          - 49
+          - 33
+          - 21
         '#format_items': and
       webform_term_select_ol:
         '#type': webform_term_select
@@ -1569,9 +1564,9 @@ elements: |
         '#vocabulary': tags
         '#multiple': true
         '#default_value':
-          - 13
-          - 7
-          - 12
+          - 49
+          - 33
+          - 21
         '#format_items': ol
       webform_term_select_ul:
         '#type': webform_term_select
@@ -1579,15 +1574,14 @@ elements: |
         '#vocabulary': tags
         '#multiple': true
         '#default_value':
-          - 13
-          - 7
-          - 12
+          - 49
+          - 33
+          - 21
         '#format_items': ul
 css: ''
 javascript: ''
 settings:
   ajax: false
-  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -1617,8 +1611,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_confirmation: true
-  wizard_confirmation_label: ''
+  wizard_complete: true
+  wizard_complete_label: ''
   preview: 1
   preview_label: ''
   preview_title: ''

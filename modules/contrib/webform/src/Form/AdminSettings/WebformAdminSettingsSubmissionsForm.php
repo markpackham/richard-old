@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\webform\Form\AdminConfig;
+namespace Drupal\webform\Form\AdminSettings;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Configure webform admin settings for submissions.
  */
-class WebformAdminConfigSubmissionsForm extends WebformAdminConfigBaseForm {
+class WebformAdminSettingsSubmissionsForm extends WebformAdminSettingsBaseForm {
 
   /**
    * The webform token manager.
@@ -23,11 +23,11 @@ class WebformAdminConfigSubmissionsForm extends WebformAdminConfigBaseForm {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'webform_admin_config_submissions_form';
+    return 'webform_admin_settings_submissions_form';
   }
 
   /**
-   * Constructs a WebformAdminConfigSubmissionsForm object.
+   * Constructs a WebformAdminSettingsSubmissionsForm object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.
@@ -80,7 +80,7 @@ class WebformAdminConfigSubmissionsForm extends WebformAdminConfigBaseForm {
     ];
     $behavior_elements = [
       'default_submission_log' => [
-        'title' => $this->t('Log all submission events for all webforms'),
+        'title' => $this->t('Log all submission events for all webforms.'),
         'description' => $this->t('If checked, all submission events will be logged to dedicated submission log available to all webforms and submissions.'),
       ],
     ];
@@ -127,7 +127,7 @@ class WebformAdminConfigSubmissionsForm extends WebformAdminConfigBaseForm {
       '#title' => $this->t('Amount of submissions to process'),
       '#min' => 1,
       '#default_value' => $config->get('purge.cron_size'),
-      '#description' => $this->t('Enter the amount of submissions to be purged during single cron run. You may want to lower this number if you are facing memory or timeout issues when purging via cron.'),
+      '#description' => $this->t('Amount of submissions to purge during single cron run. You may want to lower this number if you are facing memory or timeout issues when purging via cron.'),
     ];
 
     return parent::buildForm($form, $form_state);

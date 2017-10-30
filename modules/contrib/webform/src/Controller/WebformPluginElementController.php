@@ -145,7 +145,6 @@ class WebformPluginElementController extends ControllerBase implements Container
               '#type' => 'link',
               '#title' => $element_plugin_id,
               '#url' => new Url('webform.element_plugins.test', ['type' => $element_plugin_id]),
-              '#attributes' => ['class' => ['webform-form-filter-text-source']],
             ],
           ];
         }
@@ -284,8 +283,8 @@ class WebformPluginElementController extends ControllerBase implements Container
     // Settings
     $build['settings'] = [
       '#type' => 'link',
-      '#title' => $this->t('Edit configuration'),
-      '#url' => Url::fromRoute('webform.config.elements'),
+      '#title' => $this->t('Edit settings'),
+      '#url' => Url::fromRoute('webform.settings.elements'),
       '#attributes' => ['class' => ['button', 'button--small'], 'style' => 'float: right'],
     ];
 

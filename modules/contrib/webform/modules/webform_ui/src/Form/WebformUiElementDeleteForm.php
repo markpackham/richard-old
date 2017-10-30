@@ -7,7 +7,6 @@ use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\webform\Form\WebformDialogFormTrait;
-use Drupal\webform\Plugin\WebformElementManagerInterface;
 use Drupal\webform\WebformEntityElementsValidatorInterface;
 use Drupal\webform\WebformInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -26,13 +25,6 @@ class WebformUiElementDeleteForm extends ConfirmFormBase {
    * @var \Drupal\Core\Render\RendererInterface
    */
   protected $renderer;
-
-  /**
-   * Webform element manager.
-   *
-   * @var \Drupal\webform\Plugin\WebformElementManagerInterface
-   */
-  protected $elementManager;
 
   /**
    * Webform element validator.
@@ -74,14 +66,11 @@ class WebformUiElementDeleteForm extends ConfirmFormBase {
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer.
-   * @param \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager
-   *   The webform element manager.
    * @param \Drupal\webform\WebformEntityElementsValidatorInterface $elements_validator
    *   Webform element validator.
    */
-  public function __construct(RendererInterface $renderer, WebformElementManagerInterface $element_manager, WebformEntityElementsValidatorInterface $elements_validator) {
+  public function __construct(RendererInterface $renderer, WebformEntityElementsValidatorInterface $elements_validator) {
     $this->renderer = $renderer;
-    $this->elementManager = $element_manager;
     $this->elementsValidator = $elements_validator;
   }
 
@@ -91,7 +80,6 @@ class WebformUiElementDeleteForm extends ConfirmFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('renderer'),
-      $container->get('plugin.manager.webform.element'),
       $container->get('webform.elements_validator')
     );
   }
@@ -106,8 +94,7 @@ class WebformUiElementDeleteForm extends ConfirmFormBase {
     ];
 
     $build = [];
-    $element_plugin = $this->getWebformElementPlugin();
-    if ($element_plugin->isContainer($this->element)) {
+    if ($this->webformElement->isContainer($this->element)) {
       $build['warning'] = [
         '#markup' => $this->t('This will immediately delete the %element container and all nested elements within %element from the %webform webform. This cannot be undone.', $t_args),
       ];
@@ -201,6 +188,11 @@ class WebformUiElementDeleteForm extends ConfirmFormBase {
       throw new NotFoundHttpException();
     }
 
+    /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
+    $element_manager = \Drupal::service('plugin.manager.webform.element');
+    $plugin_id = $element_manager->getElementPluginId($this->element);
+    $this->webformElement = $element_manager->createInstance($plugin_id, $this->element);
+
     $form = parent::buildForm($form, $form_state);
     $form = $this->buildDialogConfirmForm($form, $form_state);
     return $form;
@@ -225,16 +217,6 @@ class WebformUiElementDeleteForm extends ConfirmFormBase {
    */
   protected function getElementTitle() {
     return (!empty($this->element['#title'])) ? $this->element['#title'] : $this->key;
-  }
-
-  /**
-   * Return the webform element plugin associated with this form.
-   *
-   * @return \Drupal\webform\Plugin\WebformElementInterface
-   *   A webform element.
-   */
-  protected function getWebformElementPlugin() {
-    return $this->elementManager->getElementInstance($this->element);
   }
 
 }

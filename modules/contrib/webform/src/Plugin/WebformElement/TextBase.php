@@ -16,14 +16,14 @@ abstract class TextBase extends WebformElementBase {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    return [
+    return parent::getDefaultProperties() + [
       'size' => '',
       'minlength' => '',
       'maxlength' => '',
       'placeholder' => '',
       'autocomplete' => 'on',
       'pattern' => '',
-    ] + parent::getDefaultProperties();
+    ];
   }
 
   /**

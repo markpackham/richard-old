@@ -21,14 +21,16 @@ class TextField extends TextBase {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    return [
+    return parent::getDefaultProperties() + [
+      'multiple' => FALSE,
+      'multiple__header_label' => '',
       // Form display.
       'input_mask' => '',
       // Form validation.
       'counter_type' => '',
       'counter_maximum' => '',
       'counter_message' => '',
-    ] + parent::getDefaultProperties() + parent::getDefaultMultipleProperties();
+    ];
   }
 
   /**

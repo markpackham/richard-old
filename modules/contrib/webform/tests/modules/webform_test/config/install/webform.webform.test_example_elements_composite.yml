@@ -25,42 +25,6 @@ elements: |
       '#title': 'Address multiple'
       '#multiple': true
       '#multiple__header': true
-  webform_composite_example:
-    '#type': details
-    '#title': 'Composite custom'
-    '#open': true
-    webform_composite:
-      '#type': webform_composite
-      '#title': 'Composite custom'
-      '#element':
-        name:
-          '#type': textfield
-          '#title': Name
-          '#title_display': invisible
-        gender:
-          '#type': select
-          '#title': Gender
-          '#title_display': invisible
-      '#gender__options':
-        Male: Male
-        Female: Female
-    webform_composite_multiple:
-      '#type': webform_composite
-      '#title': 'Composite custom multiple'
-      '#element':
-        name:
-          '#type': textfield
-          '#title': Name
-          '#title_display': invisible
-        gender:
-          '#type': select
-          '#title': Gender
-          '#title_display': invisible
-      '#gender__options':
-        Male: Male
-        Female: Female
-      '#multiple': true
-      '#multiple__header': true
   webform_contact_example:
     '#type': details
     '#title': Contact
@@ -174,7 +138,6 @@ css: ''
 javascript: ''
 settings:
   ajax: false
-  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -204,8 +167,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_confirmation: true
-  wizard_confirmation_label: ''
+  wizard_complete: true
+  wizard_complete_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''

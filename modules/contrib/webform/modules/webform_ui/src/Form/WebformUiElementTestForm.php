@@ -57,11 +57,11 @@ class WebformUiElementTestForm extends WebformUiElementFormBase {
       $this->element = $element;
     }
     else {
-      $element = ['#type' => $type] + $this->getWebformElementPlugin()->preview();
+      $element = ['#type' => $type] + $this->getWebformElement()->preview();
       $this->element = $element;
     }
 
-    $webform_element = $this->getWebformElementPlugin();
+    $webform_element = $this->getWebformElement();
     $form['#title'] = $this->t('Test %type element', ['%type' => $type]);
 
     if ($element) {
@@ -182,7 +182,7 @@ class WebformUiElementTestForm extends WebformUiElementFormBase {
     $element_form_state = clone $form_state;
     $element_form_state->setValues($form_state->getValue('properties'));
 
-    $properties = $this->getWebformElementPlugin()->getConfigurationFormProperties($form, $element_form_state);
+    $properties = $this->getWebformElement()->getConfigurationFormProperties($form, $element_form_state);
 
     // Set #default_value using 'test' element value.
     if ($element_value = $form_state->getValue('element')) {
@@ -233,12 +233,12 @@ class WebformUiElementTestForm extends WebformUiElementFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getWebformElementPlugin() {
+  public function getWebformElement() {
     if (empty($this->element)) {
       return $this->elementManager->getElementInstance(['#type' => $this->type]);
     }
     else {
-      return parent::getWebformElementPlugin();
+      return parent::getWebformElement();
     }
   }
 

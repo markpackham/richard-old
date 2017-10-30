@@ -117,10 +117,8 @@ class WebformSubmissionLogTest extends WebformTestBase {
     $this->assertEqual($log->sid, 2);
     $this->assertEqual($log->uid, $this->adminWebformUser->id());
     $this->assertEqual($log->handler_id, '');
-    /**************************************************************************/
     // $this->assertEqual($log->operation, 'submission completed');
     // $this->assertEqual($log->message, 'Test: Submission: Logging: Submission #2 completed using saved draft.');
-    /**************************************************************************/
     $this->assertEqual($log->webform_id, 'test_submission_log');
     $this->assertNull($log->entity_type);
     $this->assertNull($log->entity_id);
@@ -132,7 +130,7 @@ class WebformSubmissionLogTest extends WebformTestBase {
     $this->assertFalse($log);
 
     // Check all results log table is empty.
-    $this->drupalGet('admin/structure/webform/submissions/log');
+    $this->drupalGet('admin/structure/webform/log');
     $this->assertRaw('No log messages available.');
 
     // Check webform results log table is empty.
@@ -140,10 +138,10 @@ class WebformSubmissionLogTest extends WebformTestBase {
     $this->assertRaw('No log messages available.');
 
     $sid_3 = $this->postSubmission($webform);
-    WebformSubmission::load($sid_3);
+    $webform_submision = WebformSubmission::load($sid_3);
 
     // Check all results log table has record.
-    $this->drupalGet('admin/structure/webform/submissions/log');
+    $this->drupalGet('admin/structure/webform/log');
     $this->assertNoRaw('No log messages available.');
     $this->assertRaw('<a href="' . $base_path . 'admin/structure/webform/manage/test_submission_log/results/log">Test: Submission: Logging</a>');
     $this->assertRaw('<a href="' . $base_path . 'admin/structure/webform/manage/test_submission_log/submission/3/log">3</a></td>');

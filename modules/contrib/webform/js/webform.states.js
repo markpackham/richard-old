@@ -64,27 +64,24 @@
   function triggerEventHandlers(input) {
     var $input = $(input);
     var type = input.type;
-    var tag = input.tagName.toLowerCase();
-    // Add 'webform.states' as extra parameter to event handlers.
-    // @see Drupal.behaviors.webformUnsaved
-    var extraParameters = ['webform.states'];
+    var tag = input.tagName.toLowerCase(); // Normalize case.
     if (type === 'checkbox' || type === 'radio') {
       $input
-        .trigger('change', extraParameters)
-        .trigger('blur', extraParameters);
+        .trigger('change')
+        .trigger('blur');
     }
     else if (tag === 'select') {
       $input
-        .trigger('change', extraParameters)
-        .trigger('blur', extraParameters);
+        .trigger('change')
+        .trigger('blur');
     }
     else if (type !== 'submit' && type !== 'button') {
       $input
-        .trigger('input', extraParameters)
-        .trigger('change', extraParameters)
-        .trigger('keydown', extraParameters)
-        .trigger('keyup', extraParameters)
-        .trigger('blur', extraParameters);
+        .trigger('input')
+        .trigger('change')
+        .trigger('keydown')
+        .trigger('keyup')
+        .trigger('blur');
     }
   }
 
@@ -165,7 +162,7 @@
 
     // Check for #states no clear attribute.
     // @see https://css-tricks.com/snippets/jquery/make-an-jquery-hasattr/
-    if ($input.closest('[data-webform-states-no-clear]').length) {
+    if ($input[0].hasAttribute('data-webform-states-no-clear')) {
       return;
     }
 

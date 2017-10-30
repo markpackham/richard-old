@@ -7,6 +7,7 @@ use Drupal\webform\Tests\WebformTestBase;
 /**
  * Defines an abstract test base for webform wizard tests.
  */
+
 abstract class WebformWizardTestBase extends WebformTestBase {
 
   /**
@@ -14,6 +15,7 @@ abstract class WebformWizardTestBase extends WebformTestBase {
    */
   public function setUp() {
     parent::setUp();
+
 
     // Exclude Progress tracker so that the default progress bar is displayed.
     // The default progress bar is most likely never going to change.

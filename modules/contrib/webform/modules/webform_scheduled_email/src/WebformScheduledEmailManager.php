@@ -2,7 +2,6 @@
 
 namespace Drupal\webform_scheduled_email;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Query\Delete as QueryDelete;
 use Drupal\Core\Entity\EntityInterface;
@@ -27,14 +26,7 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
    *
    * @var \Drupal\Core\Database\Connection
    */
-  protected $database;
-
-  /**
-   * The configuration object factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected $configFactory;
+  private $database;
 
   /**
    * Webform storage.
@@ -69,8 +61,6 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
    *
    * @param \Drupal\Core\Database\Connection $database
    *   The database connection.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The configuration object factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
    * @param \Psr\Log\LoggerInterface $logger
@@ -78,9 +68,8 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
    * @param \Drupal\webform\WebformTokenManagerInterface $token_manager
    *   The webform token manager.
    */
-  public function __construct(Connection $database, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerInterface $logger, WebformTokenManagerInterface $token_manager) {
+  public function __construct(Connection $database, EntityTypeManagerInterface $entity_type_manager, LoggerInterface $logger, WebformTokenManagerInterface $token_manager) {
     $this->database = $database;
-    $this->configFactory = $config_factory;
     $this->webformStorage = $entity_type_manager->getStorage('webform');
     $this->submissionStorage = $entity_type_manager->getStorage('webform_submission');
     $this->logger = $logger;
@@ -415,12 +404,7 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
   /**
    * {@inheritdoc}
    */
-  public function cron(EntityInterface $entity = NULL, $handler_id = NULL, $schedule_limit = 1000, $send_limit = NULL) {
-    // Get default batch email size.
-    if ($send_limit === NULL) {
-      $send_limit = $this->configFactory->get('webform.settings')->get('batch.default_batch_email_size') ?: 500;
-    }
-
+  public function cron(EntityInterface $entity = NULL, $handler_id = NULL, $schedule_limit = 1000, $send_limit = 500) {
     $stats = [];
     $stats += $this->cronSchedule($entity, $handler_id, $schedule_limit);
     $stats += $this->cronSend($entity, $handler_id, $send_limit);

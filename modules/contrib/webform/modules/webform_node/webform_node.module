@@ -10,7 +10,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
-use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\webform\Element\WebformMessage;
 use Drupal\webform\Entity\Webform;
@@ -53,7 +52,7 @@ function webform_node_help($route_name, RouteMatchInterface $route_match) {
   }
 
   // Display warning message if webform query string parameter is missing.
-  if ($has_webform_field && !\Drupal::request()->get('webform_id')) {
+  if ($has_webform_field && !\Drupal::request()->get('webform')) {
     $build = [
       '#type' => 'webform_message',
       '#message_type' => 'warning',
@@ -64,7 +63,7 @@ function webform_node_help($route_name, RouteMatchInterface $route_match) {
       '#cache' => ['max-age' => 0],
     ];
   }
-  elseif (\Drupal::request()->get('webform_id')) {
+  elseif (\Drupal::request()->get('webform')) {
     // If there is a webform query string parameter, then disable caching.
     $build = ['#cache' => ['max-age' => 0]];
   }
@@ -138,10 +137,9 @@ function webform_node_node_prepare_form(NodeInterface $node, $operation, FormSta
     return;
   }
 
-  // Populate the node's title and webform field.
+  // Populate the webform field.
   $webform_id = \Drupal::request()->query->get('webform_id');
-  if ($webform_id && ($webform = Webform::load($webform_id))) {
-    $node->title->value = $webform->label();
+  if ($webform_id && Webform::load($webform_id)) {
     $node->$field_name->target_id = $webform_id;
   }
 }
@@ -162,10 +160,6 @@ function webform_node_node_delete(NodeInterface $node) {
  */
 function webform_node_preprocess_page_title(&$variables) {
   $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node && is_string($node)) {
-    $node = Node::load($node);
-  }
-
   if (!$node) {
     return;
   }

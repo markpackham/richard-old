@@ -35,12 +35,12 @@ class ProcessedText extends WebformMarkupBase {
       $default_format = '';
     }
 
-    return [
+    return parent::getDefaultProperties() + [
       'wrapper_attributes' => [],
       // Markup settings.
       'text' => '',
       'format' => $default_format ,
-    ] + parent::getDefaultProperties();
+    ];
   }
 
   /**

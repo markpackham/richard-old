@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\webform\Form\AdminConfig;
+namespace Drupal\webform\Form\AdminSettings;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Configure webform admin settings for forms.
  */
-class WebformAdminConfigFormsForm extends WebformAdminConfigBaseForm {
+class WebformAdminSettingsFormsForm extends WebformAdminSettingsBaseForm {
 
   /**
    * The webform token manager.
@@ -41,11 +41,11 @@ class WebformAdminConfigFormsForm extends WebformAdminConfigBaseForm {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'webform_admin_config_forms_form';
+    return 'webform_admin_settings_forms_form';
   }
 
   /**
-   * Constructs a WebformAdminConfigFormsForm object.
+   * Constructs a WebformAdminSettingsFormsForm object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.
@@ -169,7 +169,7 @@ class WebformAdminConfigFormsForm extends WebformAdminConfigBaseForm {
       ],
       'default_form_disable_back' => [
         'title' => $this->t('Disable back button for all webforms'),
-        'description' => $this->t("If checked, users will not be allowed to navigate back to the webform using the browser's back button."),
+        'description' => $this->t('If checked, users will not be allowed to navigate back to the webform using the browsers back button.'),
       ],
       'default_form_unsaved' => [
         'title' => $this->t('Warn users about unsaved changes for all webforms'),
@@ -180,8 +180,8 @@ class WebformAdminConfigFormsForm extends WebformAdminConfigBaseForm {
         'description' => $this->t('If checked, the <a href=":href">novalidate</a> attribute, which disables client-side validation, will be added to all webforms.', [':href' => 'http://www.w3schools.com/tags/att_form_novalidate.asp']),
       ],
       'default_form_details_toggle' => [
-        'title' => $this->t('Display collapse/expand all details link on all webforms'),
-        'description' => $this->t('If checked, an expand/collapse all details link will be added to all webforms which contain two or more details elements.'),
+        'title' => $this->t('Display collapse/expand all details link for all webforms'),
+        'description' => $this->t('If checked, an expand/collapse all (details) link will be added to all webforms with two or more details elements.'),
       ],
     ];
     foreach ($behavior_elements as $behavior_key => $behavior_element) {
@@ -222,12 +222,12 @@ class WebformAdminConfigFormsForm extends WebformAdminConfigBaseForm {
       '#size' => 20,
       '#default_value' => $settings['default_wizard_start_label'],
     ];
-    $form['wizard_settings']['default_wizard_confirmation_label'] = [
+    $form['wizard_settings']['default_wizard_complete_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Default wizard end label'),
       '#required' => TRUE,
       '#size' => 20,
-      '#default_value' => $settings['default_wizard_confirmation_label'],
+      '#default_value' => $settings['default_wizard_complete_label'],
     ];
 
     // Preview settings.
@@ -266,7 +266,7 @@ class WebformAdminConfigFormsForm extends WebformAdminConfigBaseForm {
     $form['preview_settings']['default_preview_message'] = [
       '#type' => 'webform_html_editor',
       '#title' => $this->t('Default preview message'),
-      '#description' => $this->t('Leave blank to not automatically include a preview message on all forms.'),
+      '#required' => TRUE,
       '#default_value' => $settings['default_preview_message'],
     ];
     $form['preview_settings']['preview_classes'] = [

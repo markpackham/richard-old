@@ -1,7 +1,8 @@
 <?php
 
-namespace Drupal\webform\Form\AdminConfig;
+namespace Drupal\webform\Form\AdminSettings;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
@@ -12,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Configure webform admin settings for exporters.
  */
-class WebformAdminConfigExportersForm extends WebformAdminConfigBaseForm {
+class WebformAdminSettingsExportersForm extends WebformAdminSettingsBaseForm {
 
   /**
    * The webform exporter manager.
@@ -32,11 +33,11 @@ class WebformAdminConfigExportersForm extends WebformAdminConfigBaseForm {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'webform_admin_config_exporters_form';
+    return 'webform_admin_settings_exporters_form';
   }
 
   /**
-   * Constructs a WebformAdminConfigExportersForm object.
+   * Constructs a WebformAdminSettingsExportersForm object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.
@@ -71,7 +72,7 @@ class WebformAdminConfigExportersForm extends WebformAdminConfigBaseForm {
     // Export.
     $form['export_settings'] = [
       '#type' => 'details',
-      '#title' => $this->t('Default export settings'),
+      '#title' => $this->t('Export settings'),
       '#description' => $this->t('Enter default export settings to be used by all webforms.'),
       '#open' => TRUE,
     ];

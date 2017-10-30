@@ -4,9 +4,9 @@ entity.webform.references:
   base_route: entity.webform.canonical
   weight: 50
 
-entity.node.webform.test_form:
+entity.node.webform.test:
   title: 'Test'
-  route_name: entity.node.webform.test_form
+  route_name: entity.node.webform.test
   base_route: entity.node.canonical
   # No weight provided. @see node.links.task.yml
 

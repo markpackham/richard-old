@@ -100,6 +100,8 @@ class WebformNodeEntityReferenceTest extends WebformNodeTestBase {
 
     /**************************************************************************/
 
+    // Check deleting node and user data.
+
     // Delete the node.
     Node::load(1)->delete();
 

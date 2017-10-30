@@ -14,64 +14,59 @@ interface WebformMessageManagerInterface {
   /****************************************************************************/
 
   /**
-   * Admin closed.
+   * Admin only access.
    */
-  const ADMIN_CLOSED = 1;
-
-  /**
-   * Admin page.
-   */
-  const ADMIN_PAGE = 2;
+  const ADMIN_ACCESS = 1;
 
   /**
    * Default submission confirmation.
    */
-  const SUBMISSION_DEFAULT_CONFIRMATION = 3;
+  const SUBMISSION_DEFAULT_CONFIRMATION = 2;
 
   /**
    * Submission previous.
    */
-  const SUBMISSION_PREVIOUS = 4;
+  const SUBMISSION_PREVIOUS = 3;
 
   /**
    * Submissions previous.
    */
-  const SUBMISSIONS_PREVIOUS = 5;
+  const SUBMISSIONS_PREVIOUS = 4;
 
   /**
    * Submission updates.
    */
-  const SUBMISSION_UPDATED = 6;
+  const SUBMISSION_UPDATED = 5;
 
   /**
    * Submission test.
    */
-  const SUBMISSION_TEST = 7;
+  const SUBMISSION_TEST = 6;
 
   /**
    * Webform not saving or sending any data.
    */
-  const FORM_SAVE_EXCEPTION = 8;
+  const FORM_SAVE_EXCEPTION = 7;
 
   /**
    * Webform not able to handle file uploads.
    */
-  const FORM_FILE_UPLOAD_EXCEPTION = 9;
+  const FORM_FILE_UPLOAD_EXCEPTION = 8;
 
   /**
    * Handler submission test.
    */
-  const HANDLER_SUBMISSION_REQUIRED = 10;
+  const HANDLER_SUBMISSION_REQUIRED = 9;
 
   /**
    * Draft previous.
    */
-  const DRAFT_PREVIOUS = 11;
+  const DRAFT_PREVIOUS = 10;
 
   /**
    * Drafts previous.
    */
-  const DRAFTS_PREVIOUS = 12;
+  const DRAFTS_PREVIOUS = 11;
 
   /****************************************************************************/
   // Configurable message constants.

@@ -7,13 +7,11 @@
   display: inline-block;
   border: 2px solid #bbb;
   background: #bbb;
-  line-height: 14px;
-  width: 14px;
-  font-size: 12px;
+  line-height: 1em;
+  width: 1em;
   border-radius: 50%;
   font-weight: bold;
   text-align: center;
-  vertical-align: baseline;
   margin: 0 .3em;
 }
 
@@ -33,6 +31,6 @@
   cursor: help;
 }
 
-.ui-tooltip.webform-element-help--tooltip {
+.ui-tooltip.webform-element-help--tooltip  {
   max-width: 400px;
 }

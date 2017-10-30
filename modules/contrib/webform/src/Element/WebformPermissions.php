@@ -4,7 +4,6 @@ namespace Drupal\webform\Element;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\Select;
-use Drupal\webform\Utility\WebformElementHelper;
 
 /**
  * Provides a webform roles (select) element.
@@ -44,7 +43,12 @@ class WebformPermissions extends Select {
     }
     $element['#options'] = $options;
 
-    WebformElementHelper::enhanceSelect($element, TRUE);
+    // Select2 support.
+    if (!empty($element['#select2'])) {
+      $element['#attributes']['class'][] = 'js-webform-select2';
+      $element['#attributes']['class'][] = 'webform-select2';
+      $element['#attached']['library'][] = 'webform/webform.element.select2';
+    }
 
     // Must convert this element['#type'] to a 'select' to prevent
     // "Illegal choice %choice in %name element" validation error.

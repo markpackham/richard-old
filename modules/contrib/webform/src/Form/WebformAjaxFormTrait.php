@@ -178,21 +178,16 @@ trait WebformAjaxFormTrait {
    *   to a URL
    */
   public function submitAjaxForm(array &$form, FormStateInterface $form_state) {
-    $scroll_top_target = (isset($form['#webform_ajax_scroll_top'])) ? $form['#webform_ajax_scroll_top'] : 'form';
     if ($form_state->hasAnyErrors()) {
       // Display validation errors and scroll to the top of the page.
       $response = $this->replaceForm($form, $form_state);
-      if ($scroll_top_target) {
-        $response->addCommand(new WebformScrollTopCommand('#' . $this->getWrapperId(), $scroll_top_target));
-      }
+      $response->addCommand(new WebformScrollTopCommand('#' . $this->getWrapperId()));
       return $response;
     }
     elseif ($form_state->isRebuilding()) {
       // Rebuild form.
       $response = $this->replaceForm($form, $form_state);
-      if ($scroll_top_target) {
-        $response->addCommand(new WebformScrollTopCommand('#' . $this->getWrapperId(), $scroll_top_target));
-      }
+      $response->addCommand(new WebformScrollTopCommand('#' . $this->getWrapperId()));
       return $response;
     }
     elseif ($redirect_url = $this->getFormStateRedirectUrl($form_state)) {

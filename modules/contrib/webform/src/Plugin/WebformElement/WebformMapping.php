@@ -34,12 +34,10 @@ class WebformMapping extends WebformElementBase {
   public function getDefaultProperties() {
     return [
       'title' => '',
-      'default_value' => [],
-      // Description/Help.
+      // General settings.
       'help' => '',
       'description' => '',
-      'more' => '',
-      'more_title' => '',
+      'default_value' => [],
       // Form display.
       'title_display' => '',
       'description_display' => '',
@@ -49,8 +47,6 @@ class WebformMapping extends WebformElementBase {
       'required_error' => '',
       // Submission display.
       'format' => $this->getItemDefaultFormat(),
-      'format_html' => '',
-      'format_text' => '',
       // Mapping settings.
       'arrow' => '→',
       'source' => [],
@@ -173,11 +169,12 @@ class WebformMapping extends WebformElementBase {
    * {@inheritdoc}
    */
   public function formatTextItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
-    if ($this->hasValue($element, $webform_submission, $options)) {
+    $value = $this->getValue($element, $webform_submission, $options);
+
+    // Return empty value.
+    if ($value === '' || $value === NULL || (is_array($value) && empty($value))) {
       return '';
     }
-
-    $value = $this->getValue($element, $webform_submission, $options);
 
     $element += [
       '#destination' => [],

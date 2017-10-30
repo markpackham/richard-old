@@ -271,8 +271,8 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
     $text_element_options_raw = [];
     $elements = $this->webform->getElementsInitializedAndFlattened();
     foreach ($elements as $key => $element) {
-      $element_plugin = $this->elementManager->getElementInstance($element);
-      if (!$element_plugin->isInput($element)) {
+      $element_handler = $this->elementManager->getElementInstance($element);
+      if (!$element_handler->isInput($element)) {
         continue;
       }
 
@@ -328,7 +328,7 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
       $form['to']['roles_message'] = [
         '#type' => 'webform_message',
         '#message_type' => 'warning',
-        '#message_message' => $this->t('Please note: You can select which user roles can be available to receive webform emails by going to the Webform module\'s <a href=":href">admin settings</a> form.', [':href' => Url::fromRoute('webform.config.handlers')->toString()]),
+        '#message_message' => $this->t('Please note: You can select which user roles can be available to receive webform emails by going to the Webform module\'s <a href=":href">admin settings</a> form.', [':href' => Url::fromRoute('webform.settings.handlers')->toString()]),
         '#message_close' => TRUE,
         '#message_id' => 'webform_email_roles_message',
         '#message_storage' => WebformMessage::STORAGE_USER,
@@ -685,7 +685,7 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
    * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
    *   A webform submission.
    * @param string $configuration_name
-   *   The email configuration name. (i.e. to, cc, bcc, or from)
+   *   The email configuration name. (ie to, cc, bcc, or from)
    * @param string $configuration_value
    *   The email configuration value.
    *
@@ -786,10 +786,10 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
     $attachments = [];
     $elements = $this->webform->getElementsInitializedAndFlattened();
     foreach ($elements as $configuration_key => $element) {
-      $element_plugin = $this->elementManager->getElementInstance($element);
+      $element_handler = $this->elementManager->getElementInstance($element);
       // Only elements that extend the 'Managed file' element can add
       // file attachments.
-      if (!($element_plugin instanceof WebformManagedFileBase)) {
+      if (!($element_handler instanceof WebformManagedFileBase)) {
         continue;
       }
 
@@ -807,8 +807,9 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
       /** @var \Drupal\file\FileInterface[] $files */
       $files = File::loadMultiple(is_array($fids) ? $fids : [$fids]);
       foreach ($files as $file) {
+        $filepath = \Drupal::service('file_system')->realpath($file->getFileUri());
         $attachments[] = [
-          'filecontent' => file_get_contents($file->getFileUri()),
+          'filecontent' => file_get_contents($filepath),
           'filename' => $file->getFilename(),
           'filemime' => $file->getMimeType(),
           // Add URL to be used by resend webform.
@@ -1323,7 +1324,7 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
    */
   public static function ajaxCallback(array $form, FormStateInterface $form_state) {
     $trigger_element = $form_state->getTriggeringElement();
-    return NestedArray::getValue($form, array_slice($trigger_element['#array_parents'], 0, -1));
+    return NestedArray::getValue($form,  array_slice($trigger_element['#array_parents'],0, -1));
   }
 
   /**

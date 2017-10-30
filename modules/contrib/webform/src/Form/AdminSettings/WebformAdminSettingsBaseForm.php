@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\webform\Form\AdminConfig;
+namespace Drupal\webform\Form\AdminSettings;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
@@ -8,7 +8,7 @@ use Drupal\Core\Form\ConfigFormBase;
 /**
  * Base webform admin settings form.
  */
-abstract class WebformAdminConfigBaseForm extends ConfigFormBase {
+abstract class WebformAdminSettingsBaseForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\webform\Form\AdminConfig;
+namespace Drupal\webform\Form\AdminSettings;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Configure webform admin settings for handlers.
  */
-class WebformAdminConfigHandlersForm extends WebformAdminConfigBaseForm {
+class WebformAdminSettingsHandlersForm extends WebformAdminSettingsBaseForm {
 
   /**
    * The webform handler manager.
@@ -31,11 +31,11 @@ class WebformAdminConfigHandlersForm extends WebformAdminConfigBaseForm {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'webform_admin_config_handlers_form';
+    return 'webform_admin_settings_handlers_form';
   }
 
   /**
-   * Constructs a WebformAdminConfigHandlersForm object.
+   * Constructs a WebformAdminSettingsHandlersForm object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.
@@ -106,13 +106,13 @@ class WebformAdminConfigHandlersForm extends WebformAdminConfigBaseForm {
     $form['mail']['default_reply_to'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Default reply-to email'),
-      '#description' => $this->t("The default email address that a recipient will see when they are replying to an email. Leave blank to automatically use the 'From email' address. Setting the 'Reply-to' to the 'From email' prevent emails from being flagged as spam."),
+      '#description' => $this->t("Enter the email address that a recipient will see when they are replying to an email. Leave blank to automatically use the 'From email' address. Setting the 'Reply-to' to the 'From email' prevent emails from being flagged as spam."),
       '#default_value' => $config->get('mail.default_reply_to'),
     ];
     $form['mail']['default_return_path'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Default return path (email)'),
-      '#description' => $this->t("The default email address to which bounce messages are delivered. Leave blank to automatically use the 'From email' address."),
+      '#description' => $this->t("Enter an email address to which bounce messages are delivered. Leave blank to automatically use the 'From email' address."),
       '#default_value' => $config->get('mail.default_return_path'),
     ];
     $form['mail']['default_sender_mail'] = [
@@ -124,7 +124,7 @@ class WebformAdminConfigHandlersForm extends WebformAdminConfigBaseForm {
     $form['mail']['default_sender_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Default sender name'),
-      '#description' => $this->t('The default sender name which is used along with the default sender email address.'),
+      '#description' => $this->t('The default sender name which is used along with the default sender address.'),
       '#default_value' => $config->get('mail.default_sender_name'),
     ];    
     $form['mail']['default_subject'] = [

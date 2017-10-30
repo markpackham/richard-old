@@ -30,7 +30,7 @@ abstract class DocumentBaseWebformExporter extends WebformExporterBase {
     $form['file_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('File name'),
-      '#description' => $this->t('Used to create unique file names for exported submissions.'),
+      '#description' => $this->t('Submission file names must be unique.'),
       '#required' => TRUE,
       '#default_value' => $this->configuration['file_name'],
       '#states' => [

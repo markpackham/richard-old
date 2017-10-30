@@ -308,8 +308,6 @@ abstract class WebformTestBase extends WebTestBase {
   /**
    * Create a webform.
    *
-   * @param array|null $values
-   *   (optional) Array of values.
    * @param array|null $elements
    *   (optional) Array of elements.
    * @param array $settings
@@ -318,10 +316,10 @@ abstract class WebformTestBase extends WebTestBase {
    * @return \Drupal\webform\WebformInterface
    *   A webform.
    */
-  protected function createWebform($values = [], array $elements = [], array $settings = []) {
+  protected function createWebform(array $elements = [], array $settings = []) {
     // Create new webform.
     $id = $this->randomMachineName(8);
-    $webform = Webform::create($values + [
+    $webform = Webform::create([
       'langcode' => 'en',
       'status' => WebformInterface::STATUS_OPEN,
       'id' => $id,
