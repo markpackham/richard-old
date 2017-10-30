@@ -106,14 +106,14 @@ class WebformLibrariesManager implements WebformLibrariesManagerInterface {
         ':homepage_href' => $library['homepage_url']->toString(),
         ':external_href' => 'https://www.drupal.org/docs/8/theming-drupal-8/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-theme#external',
         ':install_href' => ($this->moduleHandler->moduleExists('help')) ? Url::fromRoute('help.page', ['name' => 'webform'], ['fragment' => 'libraries'])->toString() : 'https://www.drupal.org/docs/8/modules/webform/webform-libraries',
-        ':settings_libraries_href' => Url::fromRoute('webform.settings.libraries')->toString(),
-        ':settings_elements_href' => Url::fromRoute('webform.settings.elements')->toString(),
+        ':settings_libraries_href' => Url::fromRoute('webform.config.libraries')->toString(),
+        ':settings_elements_href' => Url::fromRoute('webform.config.elements')->toString(),
       ];
 
       if ($this->isExcluded($library_name)) {
         // Excluded.
         $stats['@excluded']++;
-        $title = $this->t('<strong>@title</strong> Excluded', $t_args);
+        $title = $this->t('<strong>@title</strong> (Excluded)', $t_args);
         if (!empty($library['elements']) && $this->areElementsExcluded($library['elements'])) {
           $t_args['@element_type'] = implode('; ', $library['elements']);
           $description = $this->t('The <a href=":homepage_href">@title</a> library is excluded because required element types (@element_type) are <a href=":settings_elements_href">excluded</a>.', $t_args);
@@ -161,7 +161,7 @@ class WebformLibrariesManager implements WebformLibrariesManagerInterface {
       'info' => $info,
     ];
     if (!$cli && $severity == REQUIREMENT_WARNING) {
-      $description['cdn'] = ['#markup' => $this->t('<a href=":href">Disable CDN warning</a>', [':href' => Url::fromRoute('webform.settings.advanced')->toString()])];
+      $description['cdn'] = ['#markup' => $this->t('<a href=":href">Disable CDN warning</a>', [':href' => Url::fromRoute('webform.config.advanced')->toString()])];
     }
 
     return [
