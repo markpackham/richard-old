@@ -136,12 +136,12 @@ window.loadSpeedboxes = function( $ ) {
       if( !pEditingPopup )
         return;
 
-      if( pSelectedCheckboxes.not(':checked').length() )
+      if( pSelectedCheckboxes.not(':checked').length )
         pEditingPopup.find( '.speedboxes-action-check-all' ).removeClass( 'speedboxes-active-action' );
       else
         pEditingPopup.find( '.speedboxes-action-check-all' ).addClass( 'speedboxes-active-action' );
 
-      if( pSelectedCheckboxes.filter(':checked').length() )
+      if( pSelectedCheckboxes.filter(':checked').length )
         pEditingPopup.find( '.speedboxes-action-uncheck-all' ).removeClass( 'speedboxes-active-action' );
       else
         pEditingPopup.find( '.speedboxes-action-uncheck-all' ).addClass( 'speedboxes-active-action' );
@@ -173,7 +173,7 @@ window.loadSpeedboxes = function( $ ) {
           .addClass( 'speedboxes-selected' );
 
         // For the case we'd like to always show the popup...
-        /*if( pRemoved.length() || pAdded.length() )
+        /*if( pRemoved.length || pAdded.length )
           updateEditingPopup();*/
 
       }
@@ -242,7 +242,7 @@ window.loadSpeedboxes = function( $ ) {
       if( pSelectionContainer && bMouseMoved ) {
         pSelectionContainer.hide();
 
-        if( pSelectedCheckboxes.length() ) {
+        if( pSelectedCheckboxes.length ) {
           if( !pEditingPopup )
             pEditingPopup = createEditingPopup();
 
