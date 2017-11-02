@@ -237,6 +237,8 @@ function template_preprocess_webform_confirmation(array &$variables) {
   else {
     $variables['back_url'] = $webform->toUrl('canonical', $options)->toString();
   }
+
+  $webform->invokeHandlers('preprocessConfirmation', $variables);
 }
 
 /**
@@ -748,6 +750,24 @@ function template_preprocess_webform_message(array &$variables) {
   $variables['attributes'] = $element['#attributes'];
   if (isset($element['#closed'])) {
     $variables['closed'] = $element['#closed'];
+  }
+}
+
+/**
+ * Prepares variables for Webform horizontal rule templates.
+ *
+ * Default template: webform-horizontal-rule.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #id, #attributes.
+ */
+function template_preprocess_webform_horizontal_rule(array &$variables) {
+  $element = $variables['element'];
+
+  if (!empty($element['#id'])) {
+    $variables['attributes']['id'] = $element['#id'];
   }
 }
 

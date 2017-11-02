@@ -148,7 +148,8 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
     });
 
     $states = [
-      WebformSubmissionInterface::STATE_DRAFT => $this->t('Draft'),
+      WebformSubmissionInterface::STATE_DRAFT => $this->t('Draft Saved'),
+      WebformSubmissionInterface::STATE_CONVERTED => $this->t('Converted'),
       WebformSubmissionInterface::STATE_COMPLETED => $this->t('Completed'),
       WebformSubmissionInterface::STATE_UPDATED => $this->t('Updated'),
       WebformSubmissionInterface::STATE_DELETED => $this->t('Deleted'),
@@ -753,7 +754,7 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
     // spam users or worse...expose user email addresses to malicious users.
     if (in_array($configuration_name, ['to', 'cc', 'bcc'])) {
       $roles = $this->configFactory->get('webform.settings')->get('mail.roles');
-      $emails = $this->tokenManager->replace($emails, $webform_submission, ['webform_role' => $roles], ['clear' => TRUE]);
+      $emails = $this->tokenManager->replace($emails, $webform_submission, ['webform_role' => $roles]);
     }
 
     // Resplit emails to make sure that emails are unique.
