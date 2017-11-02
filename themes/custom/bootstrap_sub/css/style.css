@@ -19,6 +19,7 @@ p {
 }
 
 .footer{
+    padding-top: 15px;
     padding-left: 20px;
 }
 
@@ -80,8 +81,13 @@ ul.sf-menu a {
     padding: 10px;
 }
 
+#block-bootstrap-sub-copyrightfooterblock{
+    display: inline-block;
+    width: 100%;
+}
+
 #block-bootstrap-sub-copyrightfooterblock p{
-    padding: 10px;
+    padding: 0px;
     margin: 0px;
     font-size: 9px;
 }
