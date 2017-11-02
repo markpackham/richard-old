@@ -18,6 +18,10 @@ p {
     padding: 3px;
 }
 
+.footer{
+    padding-left: 20px;
+}
+
 #navbar {
     padding-bottom: 20px;
     padding-left: 5px;
@@ -25,7 +29,6 @@ p {
 
 #block-bootstrap-sub-views-block-articles-view-block-latest-articles-view-block p,
 .field--name-body,
-.footer,
 .paragraph {
     padding: 10px 0px;
 }
@@ -55,7 +58,6 @@ p {
 
 #block-bootstrap-sub-account-menu a {
     color: #23527C;
-    padding: 10px;
 }
 
 .navbar-brand {
@@ -73,9 +75,15 @@ ul.sf-menu a {
     padding: 1em;
 }
 
-#block-bootstrap-sub-copyrightfooterblock, .region-footer .navbar-nav li a {
+#block-bootstrap-sub-account-menu a, .region-footer .navbar-nav li a {
     font-size: 12px;
     padding: 10px;
+}
+
+#block-bootstrap-sub-copyrightfooterblock p{
+    padding: 10px;
+    margin: 0px;
+    font-size: 9px;
 }
 
 .well.region.region-sidebar-second {
@@ -87,7 +95,7 @@ ul.sf-menu a {
     padding: 10px;
 }
 
-/* Homepage slideshow */
+/* Homepage slideshow*/
 
 #block-bootstrap-sub-views-block-homepage-slide-view-block-block-1 {
     padding-bottom: 20px;
@@ -96,6 +104,13 @@ ul.sf-menu a {
 @media (min-width: 480px) {
     #block-bootstrap-sub-views-block-homepage-slide-view-block-block-1 {
         width: 75%;
+    }
+}
+
+/*Hide footer menu on mobile*/
+@media (max-width: 479px){
+    #block-bootstrap-sub-mainnavigation{
+        display: none;
     }
 }
 
