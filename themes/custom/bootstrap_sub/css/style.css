@@ -30,6 +30,12 @@ p {
     padding: 10px 0px;
 }
 
+.packham{
+    font-size: 7px;
+    display: inline-block;
+    width: 100%;
+}
+
 #block-header-banner-block {
     padding: 10px 5px;
 }
