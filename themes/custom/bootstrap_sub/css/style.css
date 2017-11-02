@@ -18,7 +18,7 @@ p {
     padding: 3px;
 }
 
-.footer{
+.footer {
     padding-top: 15px;
     padding-left: 20px;
 }
@@ -34,7 +34,8 @@ p {
     padding: 10px 0px;
 }
 
-.packham{
+/*Site by Mark Packham */
+.packham {
     font-size: 7px;
     display: inline-block;
     width: 100%;
@@ -57,14 +58,6 @@ p {
     float: left !important;
 }
 
-#block-bootstrap-sub-account-menu a {
-    color: #23527C;
-}
-
-.navbar-brand {
-    display: none;
-}
-
 .navbar-nav, ul.sf-menu a {
     font-size: 13px;
     background-color: #ebf4bc;
@@ -76,20 +69,31 @@ ul.sf-menu a {
     padding: 1em;
 }
 
+#block-bootstrap-sub-account-menu a {
+    color: #23527C;
+}
+
 #block-bootstrap-sub-account-menu a, .region-footer .navbar-nav li a {
     font-size: 12px;
     padding: 10px;
 }
 
-#block-bootstrap-sub-copyrightfooterblock{
+#block-bootstrap-sub-copyrightfooterblock {
     display: inline-block;
     width: 100%;
 }
 
-#block-bootstrap-sub-copyrightfooterblock p{
+#block-bootstrap-sub-copyrightfooterblock p {
     padding: 0px;
     margin: 0px;
     font-size: 9px;
+}
+
+/*Hide footer menu on mobile*/
+@media (max-width: 479px) {
+    #block-bootstrap-sub-mainnavigation {
+        display: none;
+    }
 }
 
 .well.region.region-sidebar-second {
@@ -110,13 +114,6 @@ ul.sf-menu a {
 @media (min-width: 480px) {
     #block-bootstrap-sub-views-block-homepage-slide-view-block-block-1 {
         width: 75%;
-    }
-}
-
-/*Hide footer menu on mobile*/
-@media (max-width: 479px){
-    #block-bootstrap-sub-mainnavigation{
-        display: none;
     }
 }
 
