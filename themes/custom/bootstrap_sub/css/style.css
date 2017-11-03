@@ -59,10 +59,13 @@ p {
 }
 
 .navbar-nav, ul.sf-menu a {
-    font-size: 13px;
     background-color: #ebf4bc;
     border: 1px solid #23527C;
     box-shadow: 1px 1px #838487;
+}
+
+.navbar-nav, ul.sf-menu a, #block-bootstrap-sub-account-menu a, .region-footer .navbar-nav li a, #block-bootstrap-sub-copyrightfooterblock p {
+    font-size: 13px;
 }
 
 ul.sf-menu a {
@@ -74,7 +77,6 @@ ul.sf-menu a {
 }
 
 #block-bootstrap-sub-account-menu a, .region-footer .navbar-nav li a {
-    font-size: 12px;
     padding: 10px;
 }
 
@@ -86,7 +88,10 @@ ul.sf-menu a {
 #block-bootstrap-sub-copyrightfooterblock p {
     padding: 0px;
     margin: 0px;
-    font-size: 9px;
+}
+
+#block-bootstrap-sub-copyrightfooterblock a {
+    text-decoration: none;
 }
 
 /*Hide footer menu on mobile*/
