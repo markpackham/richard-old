@@ -5,27 +5,21 @@ sites/*/config/*
 sites/*/tmp/*
 files/*
 .idea/*
-
 # Avoid accidental modification of pantheon.upstream.yml in sites
 # created from this upstream
 pantheon.upstream.yml
-
 # Pantheon commits a settings.php for environment-specific settings.
 # Place local settings in settings.local.php
 sites/*/settings.local.php
-
 # Note that services.local.yml is not loaded by default. If you would like
 # to use this file add the following to your settings.local.php file:
 #   $settings['container_yamls'][] = __DIR__ . '/services.local.yml';
 sites/*/services.local.yml
-
 # ** Only works in OSs that support newer versions of fnmatch (Bash 4+)
 /sites/default/**/files
 /sites/default/**/private
-
 # Ignore SimpleTest multi-site environment.
 sites/simpletest
-
 # Packages #
 ############
 *.7z
@@ -38,29 +32,28 @@ sites/simpletest
 *.tar
 *.zip
 *.tgz
-
 # Logs and databases #
 ######################
 *.log
 *.sql
-
 # OS generated files #
 ######################
 .DS_Store*
 ehthumbs.db
 Icon
-
 Thumbs.db
 ._*
-
 # Vim generated files #
 ######################
 *.un~
-
 # SASS #
 ##########
 .sass-cache
-
 # Things in the core directory that Drupal 8 commits in the repository.
 !core/**/*.gz
-
+/sites/default/tmp/.htaccess
+/sites/richard-jack.dd/default.services.pantheon.preproduction.yml
+/sites/richard-jack.dd/default.services.yml
+/sites/richard-jack.dd/default.settings.php
+/sites/richard-jack.dd/settings.pantheon.php
+/sites/richard-jack.dd/settings.php
