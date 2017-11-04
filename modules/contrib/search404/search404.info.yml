@@ -6,8 +6,8 @@ package: Search
 
 configure: search404.settings
 
-# Information added by Drupal.org packaging script on 2017-10-24
-version: '8.x-1.0-beta2+7-dev'
+# Information added by Drupal.org packaging script on 2016-11-25
+version: '8.x-1.0-beta2'
 core: '8.x'
 project: 'search404'
-datestamp: 1508837648
+datestamp: 1480049002

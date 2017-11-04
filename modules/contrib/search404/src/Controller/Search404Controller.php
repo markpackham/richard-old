@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\search\Entity\SearchPage;
 use Drupal\Component\Utility\Html;
-use Drupal\search\Form\SearchPageForm;
 
 /**
  * Route controller for search.
@@ -142,7 +141,7 @@ class Search404Controller extends ControllerBase {
               $this->search404CustomErrorMessage($keys);
               // Redirecting the page for empty search404 result,
               // if redirect url is configured.
-              if (!count($results) && \Drupal::config('search404.settings')->get('search404_page_redirect')) {
+              if (\Drupal::config('search404.settings')->get('search404_page_redirect')) {
                 $redirect_path = \Drupal::config('search404.settings')->get('search404_page_redirect');
                 return $this->search404Goto($redirect_path);
               }
@@ -155,7 +154,7 @@ class Search404Controller extends ControllerBase {
       }
 
       // Construct the search form.
-      $build['search_form'] = $this->formBuilder()->getForm(SearchPageForm::class, $entity);
+      $build['search_form'] = $this->entityFormBuilder()->getForm($entity, 'search');
 
       // Set the custom page text on the top of the results.
       $search_404_page_text = \Drupal::config('search404.settings')->get('search404_page_text');
@@ -196,8 +195,7 @@ class Search404Controller extends ControllerBase {
       );
       $build['#attached']['library'][] = 'search/drupal.search.results';
     }
-    if (\Drupal::config('search404.settings')->get('search404_do_custom_search') &&
-    !\Drupal::config('search404.settings')->get('search404_skip_auto_search')) {
+    if (\Drupal::config('search404.settings')->get('search404_do_custom_search')) {
       $custom_search_path = \Drupal::config('search404.settings')->get('search404_custom_search_path');
 
       // Remove query parameters before checking whether the search path
@@ -296,7 +294,6 @@ class Search404Controller extends ControllerBase {
     // use keys from the path that resulted in the 404.
     if (empty($keys)) {
       $path = \Drupal::service('path.current')->getPath();
-      $path = urldecode($path);
       $path = preg_replace('/[_+-.,!@#$^&*();\'"?=]|[|]|[{}]|[<>]/', '/', $path);
       $paths = explode('/', $path);
       // Removing the custom search path value from the keyword search.
@@ -311,7 +308,7 @@ class Search404Controller extends ControllerBase {
         $keys = array_filter($paths);
       }
       // Split the keys with - and space.
-      $keys = preg_replace('/-/', ' ', $keys);
+      $keys = preg_replace('/-|%20/', ' ', $keys);
       foreach ($keys as $key => $value) {
         $keys_with_space_hypen[$key] = explode(' ', $value);
         $keys_with_space_hypen[$key] = array_filter($keys_with_space_hypen[$key]);
