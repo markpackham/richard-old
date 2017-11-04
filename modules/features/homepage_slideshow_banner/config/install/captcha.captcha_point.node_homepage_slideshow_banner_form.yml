@@ -1,6 +1,0 @@
-langcode: en
-status: false
-dependencies: {  }
-formId: node_homepage_slideshow_banner_form
-captchaType: default
-label: null
