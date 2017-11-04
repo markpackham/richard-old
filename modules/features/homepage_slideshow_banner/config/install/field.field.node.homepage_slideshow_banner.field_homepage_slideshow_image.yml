@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_homepage_slideshow_image
+    - node.type.homepage_slideshow_banner
+  module:
+    - image
+id: node.homepage_slideshow_banner.field_homepage_slideshow_image
+field_name: field_homepage_slideshow_image
+entity_type: node
+bundle: homepage_slideshow_banner
+label: 'Homepage Slideshow Image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: 'homepage-slideshow-[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

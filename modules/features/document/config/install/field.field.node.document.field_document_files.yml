@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_document_files
+    - node.type.document
+  module:
+    - file
+id: node.document.field_document_files
+field_name: field_document_files
+entity_type: node
+bundle: document
+label: 'Document Files'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: 'document-files-[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'txt pdf doc docx rtf jpeg png ppt pptx pps ppsx xls xlsx xlt mp3 mp4 wav wma ogg aac aiff'
+  max_filesize: '10 MB'
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

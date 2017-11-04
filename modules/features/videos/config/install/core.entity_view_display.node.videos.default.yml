@@ -1,0 +1,83 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.videos.body
+    - field.field.node.videos.field_article_paragraphs
+    - field.field.node.videos.field_video_content
+    - field.field.node.videos.field_video_topic
+    - field.field.node.videos.field_weight
+    - node.type.videos
+  module:
+    - ds
+    - entity_reference_revisions
+    - text
+    - user
+    - video
+third_party_settings:
+  ds:
+    layout:
+      id: layout_onecol
+      library: layout_discovery/onecol
+      disable_css: false
+      entity_classes: all_classes
+      settings: {  }
+    regions:
+      content:
+        - links
+        - body
+        - field_article_paragraphs
+        - field_video_content
+        - addtoany
+        - field_video_topic
+id: node.videos.default
+targetEntityType: node
+bundle: videos
+mode: default
+content:
+  addtoany:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  body:
+    label: hidden
+    type: text_default
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_article_paragraphs:
+    weight: 2
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_video_content:
+    weight: 3
+    label: hidden
+    settings:
+      width: '854'
+      height: '480'
+      autoplay: false
+    third_party_settings: {  }
+    type: video_embed_player
+    region: content
+  field_video_topic:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_weight: true

@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: document_path
+label: 'Document Path'
+type: 'canonical_entities:node'
+pattern: 'document/[current-date:html_month]/[node:title]'
+selection_criteria:
+  374537eb-bcbf-4379-a66e-70eec19e48e2:
+    id: node_type
+    bundles:
+      document: document
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 374537eb-bcbf-4379-a66e-70eec19e48e2
+selection_logic: and
+weight: -5
+relationships: {  }

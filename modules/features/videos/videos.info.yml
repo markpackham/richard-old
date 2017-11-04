@@ -1,0 +1,19 @@
+name: Videos
+description: 'Provides Videos content type and related configuration. The Videos section is populated via this content type.'
+type: module
+core: 8.x
+dependencies:
+  - captcha
+  - ds
+  - entity_reference_revisions
+  - field
+  - file
+  - menu_ui
+  - node
+  - paragraphs
+  - path
+  - scheduler
+  - taxonomy
+  - text
+  - user
+  - video

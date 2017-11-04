@@ -1,0 +1,20 @@
+name: 'Gallery Image'
+description: 'Provides Gallery Image content type and related configuration. Images to populate the /gallery section, use the Gallery area for high quality images/photos/scanned images'
+type: module
+core: 8.x
+dependencies:
+  - captcha
+  - ds
+  - entity_reference_revisions
+  - field
+  - file
+  - image
+  - menu_ui
+  - node
+  - paragraphs
+  - path
+  - pathauto
+  - scheduler
+  - taxonomy
+  - text
+  - user

@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Document Topics'
+vid: document_types
+description: ''
+hierarchy: 0
+weight: 0

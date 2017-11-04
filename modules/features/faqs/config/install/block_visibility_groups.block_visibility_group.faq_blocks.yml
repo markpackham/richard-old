@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: faq_blocks
+label: FAQ-Blocks
+logic: and
+conditions:
+  cc784acc-e328-4b69-a88a-d7b4b01877c3:
+    id: request_path
+    pages: /faqs
+    negate: false
+    context_mapping: {  }
+    uuid: cc784acc-e328-4b69-a88a-d7b4b01877c3
+allow_other_conditions: false

@@ -1,0 +1,19 @@
+name: People
+description: 'Provides People content type and related configuration. Content to populate the People page'
+type: module
+core: 8.x
+dependencies:
+  - ds
+  - entityconnect
+  - field
+  - image
+  - menu_ui
+  - node
+  - path
+  - scheduler
+  - smart_trim
+  - taxonomy
+  - telephone
+  - text
+  - user
+  - views

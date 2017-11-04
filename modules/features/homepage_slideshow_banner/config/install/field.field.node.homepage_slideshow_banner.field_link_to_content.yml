@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_link_to_content
+    - node.type.homepage_slideshow_banner
+id: node.homepage_slideshow_banner.field_link_to_content
+field_name: field_link_to_content
+entity_type: node
+bundle: homepage_slideshow_banner
+label: 'Link to Content'
+description: 'Put the url of where you want the banner to take the user to'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
