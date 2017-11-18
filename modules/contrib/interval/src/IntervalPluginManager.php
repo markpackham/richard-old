@@ -44,6 +44,8 @@ class IntervalPluginManager extends DefaultPluginManager implements IntervalPlug
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
     $this->discovery = new YamlDiscovery('intervals', $module_handler->getModuleDirectories());
+    $this->discovery->addTranslatableProperty('plural', 'plural_context');
+    $this->discovery->addTranslatableProperty('singular', 'singular_context');
     $this->discovery = new ContainerDerivativeDiscoveryDecorator($this->discovery);
     $this->factory = new ContainerFactory($this);
     $this->moduleHandler = $module_handler;
