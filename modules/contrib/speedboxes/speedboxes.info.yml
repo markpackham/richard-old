@@ -1,0 +1,11 @@
+name: Speedboxes
+type: module
+description: Allows for the checking and unchecking of multiple checkboxes with a drag and drop interface.
+# core: 8.x
+package: Tools
+
+# Information added by Drupal.org packaging script on 2017-04-28
+version: '8.x-1.0'
+core: '8.x'
+project: 'speedboxes'
+datestamp: 1493422146
