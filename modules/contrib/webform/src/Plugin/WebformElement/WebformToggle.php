@@ -36,7 +36,7 @@ class WebformToggle extends Checkbox {
   /**
    * {@inheritdoc}
    */
-  protected function formatTextItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
+  public function formatTextItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
     $value = $this->getValue($element, $webform_submission, $options);
 
     $format = $this->getItemFormat($element);

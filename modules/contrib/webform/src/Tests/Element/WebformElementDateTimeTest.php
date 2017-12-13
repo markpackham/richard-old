@@ -3,7 +3,6 @@
 namespace Drupal\webform\Tests\Element;
 
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\webform\Entity\WebformSubmission;
 use Drupal\webform\Tests\WebformTestBase;
 use Drupal\webform\Entity\Webform;
 
@@ -61,10 +60,8 @@ class WebformElementDateTimeTest extends WebformTestBase {
 
     // Check: Issue #2723159: Datetime form element cannot validate when using a
     // format without seconds.
-    $sid = $this->postSubmission($webform);
-    $submission = WebformSubmission::load($sid);
+    $this->drupalPostForm('webform/test_element_datetime', [], t('Submit'));
     $this->assertNoRaw('The datetime_no_seconds date is invalid.');
-    $this->assertEqual($submission->getElementData('datetime_no_seconds'), '2009-08-18T16:00:00+1000');
   }
 
 }

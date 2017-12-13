@@ -6,7 +6,6 @@ use Drupal\Component\Serialization\Json;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Mail\MailFormatHelper;
 use Drupal\filter\Entity\FilterFormat;
-use Drupal\user\Entity\User;
 use Drupal\webform\Plugin\WebformElementBase;
 use Drupal\webform\WebformSubmissionInterface;
 
@@ -122,19 +121,16 @@ class TextFormat extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
-  protected function formatHtmlItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
+  public function formatHtmlItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
     $value = $this->getValue($element, $webform_submission, $options);
 
-    $format = (isset($value['format'])) ? $value['format'] : $this->getItemFormat($element);
     $value = (isset($value['value'])) ? $value['value'] : $value;
+    $format = (isset($value['format'])) ? $value['format'] : $this->getItemFormat($element);
     switch ($format) {
       case 'raw':
         return $value;
 
       case 'value':
-        $default_format = filter_default_format(User::load($webform_submission->getOwnerId()));
-        return check_markup($value, $default_format);
-
       default:
         return check_markup($value, $format);
     }
@@ -143,11 +139,10 @@ class TextFormat extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
-  protected function formatTextItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
+  public function formatTextItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
     $value = $this->getValue($element, $webform_submission, $options);
 
     $format = (isset($value['format'])) ? $value['format'] : $this->getItemFormat($element);
-    $value = (isset($value['value'])) ? $value['value'] : $value;
     switch ($format) {
       case 'raw':
         return $value;
@@ -166,6 +161,13 @@ class TextFormat extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
+  public function getItemDefaultFormat() {
+    return (function_exists('filter_default_format')) ? filter_default_format() : parent::getItemDefaultFormat();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getItemFormats() {
     $formats = parent::getItemFormats();
     $filters = (class_exists('\Drupal\filter\Entity\FilterFormat')) ? FilterFormat::loadMultiple() : [];
@@ -173,14 +175,6 @@ class TextFormat extends WebformElementBase {
       $formats[$filter->id()] = $filter->label();
     }
     return $formats;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function buildExportRecord(array $element, WebformSubmissionInterface $webform_submission, array $export_options) {
-    $element['#format_items'] = $export_options['multiple_delimiter'];
-    return [$this->formatHtml($element, $webform_submission, $export_options)];
   }
 
   /**

@@ -17,7 +17,6 @@ abstract class TextBase extends WebformElementBase {
    */
   public function getDefaultProperties() {
     return [
-      'readonly' => FALSE,
       'size' => '',
       'minlength' => '',
       'maxlength' => '',
@@ -25,13 +24,6 @@ abstract class TextBase extends WebformElementBase {
       'autocomplete' => 'on',
       'pattern' => '',
     ] + parent::getDefaultProperties();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getTranslatableProperties() {
-    return array_merge(parent::getTranslatableProperties(), ['counter_message']);
   }
 
   /**

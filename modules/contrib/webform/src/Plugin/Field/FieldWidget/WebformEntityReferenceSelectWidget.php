@@ -28,32 +28,21 @@ class WebformEntityReferenceSelectWidget extends WebformEntityReferenceAutocompl
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return [
-      'default_data' => TRUE,
-    ];
+    return [];
   }
 
   /**
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
-    $element = [];
-    $element['default_data'] = [
-      '#type' => 'checkbox',
-      '#title' => t('Enable default submission data (YAML)'),
-      '#description' => t('If checked, site builders will be able to define default submission data (YAML)'),
-      '#default_value' => $this->getSetting('default_data'),
-    ];
-    return $element;
+    return [];
   }
 
   /**
    * {@inheritdoc}
    */
   public function settingsSummary() {
-    $summary = [];
-    $summary[] = t('Default submission data: @default_data', ['@default_data' => $this->getSetting('default_data') ? $this->t('Yes') : $this->t('No')]);
-    return $summary;
+    return [];
   }
 
   /**

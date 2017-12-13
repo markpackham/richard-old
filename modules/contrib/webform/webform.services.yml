@@ -73,10 +73,6 @@ services:
     class: Drupal\webform\WebformTokenManager
     arguments: ['@config.factory', '@module_handler', '@token']
 
-  webform.theme_manager:
-    class: Drupal\webform\WebformThemeManager
-    arguments: ['@config.factory', '@renderer', '@theme.manager', '@theme.initialization']
-
   webform_submission.conditions_validator:
     class: Drupal\webform\WebformSubmissionConditionsValidator
     arguments: ['@plugin.manager.webform.element']
@@ -93,7 +89,7 @@ services:
 
   webform.event_subscriber:
     class: Drupal\webform\EventSubscriber\WebformSubscriber
-    arguments: ['@current_user', '@config.factory', '@renderer', '@webform.token_manager']
+    arguments: ['@current_user', '@config.factory']
     tags:
       - { name: event_subscriber }
 

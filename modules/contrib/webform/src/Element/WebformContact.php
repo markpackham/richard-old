@@ -19,7 +19,7 @@ class WebformContact extends WebformCompositeBase {
   /**
    * {@inheritdoc}
    */
-  public static function getCompositeElements(array $element) {
+  public static function getCompositeElements() {
     $elements = [];
     $elements['name'] = [
       '#type' => 'textfield',

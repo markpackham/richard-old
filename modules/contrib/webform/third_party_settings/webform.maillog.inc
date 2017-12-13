@@ -49,14 +49,12 @@ function maillog_webform_submission_form_alter(array &$form, FormStateInterface 
   $build = [];
 
   // Display warning that all emails will be logged to admins only.
-  // Display warning that all emails will be logged to admins only.
   if (\Drupal::currentUser()->hasPermission('administer maillog')) {
-    $t_args = [':href' => Url::fromRoute('maillog.settings')->toString()];
     if ($config->get('log')) {
-      $build[] = ['#markup' => t('The <a href=":href">Maillog</a> module is logging all emails.', $t_args)];
+      $build[] = ['#markup' => t('The <a href=":href">Maillog</a> module is logging all emails.')];
     }
     else {
-      $build[] = ['#markup' => t('The <a href=":href">Maillog</a> module is installed.', $t_args)];
+      $build[] = ['#markup' => t('The <a href=":href">Maillog</a> module is installed.', [':href' => Url::fromRoute('maillog.settings')->toString()])];
     }
   }
 

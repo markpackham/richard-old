@@ -19,7 +19,7 @@ class WebformCreditCard extends WebformCompositeBase {
   /**
    * {@inheritdoc}
    */
-  public static function getCompositeElements(array $element) {
+  public static function getCompositeElements() {
     $month_options = range(1, 12);
     $year_options = range(date('Y'), date('Y') + 10);
 

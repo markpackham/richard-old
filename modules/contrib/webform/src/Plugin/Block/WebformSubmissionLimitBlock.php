@@ -11,7 +11,6 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\webform\Element\WebformHtmlEditor;
 use Drupal\webform\Entity\Webform;
-use Drupal\webform\Utility\WebformDateHelper;
 use Drupal\webform\WebformRequestInterface;
 use Drupal\webform\WebformTokenManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -321,11 +320,6 @@ class WebformSubmissionLimitBlock extends BlockBase implements ContainerFactoryP
       $text = str_replace('[limit]', $this->getLimit(), $text);
     }
 
-    // Replace [interval] token.
-    if (strpos($text, '[interval]') !== FALSE) {
-      $text = str_replace('[interval]', $this->getIntervalText(), $text);
-    }
-
     // Replace webform tokens.
     return $this->tokenManager->replace($text, $this->getWebform());
   }
@@ -343,29 +337,6 @@ class WebformSubmissionLimitBlock extends BlockBase implements ContainerFactoryP
   }
 
   /**
-   * Get submission limit interval.
-   *
-   * @return int|bool
-   *   The submission limit interval or FALSE if not submission limit is defined.
-   */
-  protected function getInterval() {
-    $name = ($this->configuration['source_entity']) ? 'entity_' : '';
-    $name .= ($this->configuration['type'] == 'user') ? 'limit_user_interval' : 'limit_total_interval';
-    return $this->getWebform()->getSetting($name);
-  }
-
-  /**
-   * Get submission limit interval text.
-   *
-   * @return string
-   *   The submission limit interval or FALSE if not submission limit is defined.
-   */
-  protected function getIntervalText() {
-    return WebformDateHelper::getIntervalText($this->getInterval());
-  }
-
-
-  /**
    * Get total number of submissions for selected limit type.
    *
    * @return int
@@ -375,8 +346,7 @@ class WebformSubmissionLimitBlock extends BlockBase implements ContainerFactoryP
     return $this->entityTypeManager->getStorage('webform_submission')->getTotal(
       $this->getWebform(),
       $this->getSourceEntity(),
-      $this->getCurrentUser(),
-      ['interval' => $this->getInterval()]
+      $this->getCurrentUser()
     );
   }
 
@@ -474,7 +444,7 @@ class WebformSubmissionLimitBlock extends BlockBase implements ContainerFactoryP
     $token_info = webform_token_info();
     $tokens = $token_info['tokens']['webform_submission'];
 
-    $token_types = ['limit', 'interval', 'total'];
+    $token_types = ['limit', 'total'];
     $token_items = [];
     foreach ($token_types as $token_type) {
       $token_name = self::getTokenName($token_type, $type, $source_entity);

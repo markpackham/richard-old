@@ -149,14 +149,6 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
   public function getNumberOfActions();
 
   /**
-   * Determine if the webform has preview page.
-   *
-   * @return bool
-   *   TRUE if the webform has preview page.
-   */
-  public function hasPreview();
-
-  /**
    * Determine if the webform has multistep form wizard pages.
    *
    * @return bool
@@ -389,11 +381,6 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
   public function setSetting($key, $value);
 
   /**
-   * Reset overridden settings to original settings.
-   */
-  public function resetSettings();
-
-  /**
    * Sets the webform settings override.
    *
    * Using this methods stops a webform from being saved with the overridden
@@ -606,14 +593,6 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
    *   Webform elements selectors as options.
    */
   public function getElementsSelectorOptions();
-
-  /**
-   * Get webform elements that can be prepopulated.
-   *
-   * @return array
-   *   Webform elements that can be prepopulated.
-   */
-  public function getElementsPrepopulate();
 
   /**
    * Sets elements (YAML) value.

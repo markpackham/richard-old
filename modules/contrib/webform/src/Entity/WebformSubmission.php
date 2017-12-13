@@ -2,7 +2,6 @@
 
 namespace Drupal\webform\Entity;
 
-use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -218,7 +217,7 @@ class WebformSubmission extends ContentEntityBase implements WebformSubmissionIn
   public function label() {
     $submission_label = $this->getWebform()->getSetting('submission_label')
       ?: \Drupal::config('webform.settings')->get('settings.default_submission_label');
-    return PlainTextOutput::renderFromHtml(\Drupal::service('webform.token_manager')->replace($submission_label, $this));
+    return \Drupal::service('webform.token_manager')->replace($submission_label, $this);
   }
 
   /**
@@ -710,13 +709,6 @@ class WebformSubmission extends ContentEntityBase implements WebformSubmissionIn
   /**
    * {@inheritdoc}
    */
-  public function resave() {
-    return $this->entityManager()->getStorage($this->entityTypeId)->resave($this);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function convert(UserInterface $account) {
     $this->converting = TRUE;
     $this->setOwner($account);
@@ -764,6 +756,7 @@ class WebformSubmission extends ContentEntityBase implements WebformSubmissionIn
       return $values;
     }
   }
+
 
   /**
    * Default value callback for 'uid' base field definition.

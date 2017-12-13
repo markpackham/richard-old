@@ -19,7 +19,7 @@ class WebformName extends WebformCompositeBase {
   /**
    * {@inheritdoc}
    */
-  public static function getCompositeElements(array $element) {
+  public static function getCompositeElements() {
     $elements = [];
     $elements['title'] = [
       '#type' => 'webform_select_other',

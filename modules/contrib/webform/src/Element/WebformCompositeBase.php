@@ -39,7 +39,7 @@ abstract class WebformCompositeBase extends FormElement {
   public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
     $default_value = [];
 
-    $composite_elements = static::getCompositeElements($element);
+    $composite_elements = static::getCompositeElements();
     foreach ($composite_elements as $composite_key => $composite_element) {
       if (isset($composite_element['#type']) && $composite_element['#type'] != 'label') {
         $default_value[$composite_key] = '';
@@ -59,14 +59,11 @@ abstract class WebformCompositeBase extends FormElement {
   /**
    * Get a renderable array of webform elements.
    *
-   * @param array $element
-   *   A render a array for the current element.
-   *
    * @return array
    *   A renderable array of webform elements, containing the base properties
    *   for the composite's webform elements.
    */
-  public static function getCompositeElements(array $element) {
+  public static function getCompositeElements() {
     return [];
   }
 
@@ -92,7 +89,7 @@ abstract class WebformCompositeBase extends FormElement {
     /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
     $element_manager = \Drupal::service('plugin.manager.webform.element');
 
-    $composite_elements = static::getCompositeElements($element);
+    $composite_elements = static::getCompositeElements();
     foreach ($composite_elements as $composite_key => &$composite_element) {
       // Transfer '#{composite_key}_{property}' from main element to composite
       // element.
@@ -103,14 +100,14 @@ abstract class WebformCompositeBase extends FormElement {
         }
       }
 
-      // Make sure to remove any #options references on text fields.
-      // This prevents "An illegal choice has been detected." error.
+      // Make sure to remove any #options reference on textfields
+      // To prevnnt "An illegal choice has been detected." error.
       // @see FormValidator::performRequiredValidation()
       if ($composite_element['#type'] == 'textfield') {
         unset($composite_element['#options']);
       }
 
-      // Initialize composite sub-element.
+      // Initialize, prepare, and populate composite sub-element.
       $element_plugin = $element_manager->getElementInstance($composite_element);
 
       // Note: File uploads are not supported because uploaded file
@@ -165,10 +162,7 @@ abstract class WebformCompositeBase extends FormElement {
     }
 
     $element += $composite_elements;
-    if (!isset($element['#element_validate'])) {
-      $element['#element_validate'] = [];
-    }
-    array_unshift($element['#element_validate'], [get_called_class(), 'validateWebformComposite']);
+    $element['#element_validate'] = [[get_called_class(), 'validateWebformComposite']];
 
     if (!empty($element['#flexbox'])) {
       $element['#attached']['library'][] = 'webform/webform.element.flexbox';
@@ -195,7 +189,7 @@ abstract class WebformCompositeBase extends FormElement {
     $has_access = (!isset($element['#access']) || $element['#access'] === TRUE);
     if ($has_access) {
       // Validate required composite elements.
-      $composite_elements = static::getCompositeElements($element);
+      $composite_elements = static::getCompositeElements();
       foreach ($composite_elements as $composite_key => $composite_element) {
         if (!empty($element[$composite_key]['#required']) && $value[$composite_key] == '') {
           if (isset($element[$composite_key]['#title'])) {

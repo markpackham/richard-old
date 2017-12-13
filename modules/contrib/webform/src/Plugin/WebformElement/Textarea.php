@@ -39,7 +39,6 @@ class Textarea extends TextBase {
       'field_suffix' => '',
       'placeholder' => '',
       'disabled' => FALSE,
-      'readonly' => FALSE,
       'rows' => '',
       'maxlength' => '',
       // Form validation.
@@ -68,6 +67,13 @@ class Textarea extends TextBase {
   /**
    * {@inheritdoc}
    */
+  public function getTranslatableProperties() {
+    return array_merge(parent::getTranslatableProperties(), ['counter_message']);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
     parent::prepare($element, $webform_submission);
 
@@ -82,7 +88,7 @@ class Textarea extends TextBase {
   /**
    * {@inheritdoc}
    */
-  protected function formatHtmlItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
+  public function formatHtmlItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
     $value = $this->getValue($element, $webform_submission, $options);
 
     return [

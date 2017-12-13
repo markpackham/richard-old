@@ -14,7 +14,7 @@ class WebformTestComposite extends WebformCompositeBase {
   /**
    * {@inheritdoc}
    */
-  public static function getCompositeElements(array $element) {
+  public static function getCompositeElements() {
     $elements = [];
     $elements['textfield'] = [
       '#type' => 'textfield',

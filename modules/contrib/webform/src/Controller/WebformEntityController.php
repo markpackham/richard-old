@@ -145,11 +145,6 @@ class WebformEntityController extends ControllerBase implements ContainerInjecti
       }
     }
 
-    // Alter webform settings before setting the entity.
-    if ($webform_submission) {
-      $webform_submission->getWebform()->invokeHandlers('overrideSettings', $webform_submission);
-    }
-
     // Get title.
     $title = $webform->getSetting('confirmation_title') ?: (($source_entity) ? $source_entity->label() : $webform->label());
 

@@ -35,9 +35,7 @@ class WebformMarkup extends WebformMarkupBase {
    * {@inheritdoc}
    */
   public function buildText(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
-    if (isset($element['#markup'])) {
-      $element['#markup'] = MailFormatHelper::htmlToText($element['#markup']);
-    }
+    $element['#markup'] = MailFormatHelper::htmlToText($element['#markup']);
     return parent::buildText($element, $webform_submission, $options);
   }
 

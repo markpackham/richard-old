@@ -189,17 +189,14 @@ class WebformHtmlEditor extends FormElement {
     switch ($allowed_tags) {
       case 'admin':
         $allowed_tags = Xss::getAdminTagList();
-        // <label>, <fieldset>, <legend>, <font> is missing from allowed tags.
+        // <label>, <fieldset>, <legend> is missing from allowed tags.
         $allowed_tags[] = 'label';
         $allowed_tags[] = 'fieldset';
         $allowed_tags[] = 'legend';
-        $allowed_tags[] = 'font';
         return $allowed_tags;
 
       case 'html':
-        $allowed_tags = Xss::getHtmlTagList();
-        $allowed_tags[] = 'font';
-        return $allowed_tags;
+        return Xss::getHtmlTagList();
 
       default:
         return preg_split('/ +/', $allowed_tags);
@@ -211,13 +208,16 @@ class WebformHtmlEditor extends FormElement {
    *
    * @param string $text
    *   The text to be filtered.
+   * @param bool $render
+   *   If TRUE the HTML markup should be rendered. If FALSE a renderable array
+   *   containing #markup or processed_text is returned. Defaults to FALSE.
    *
-   * @return array
-   *   Render array containing 'processed_text'.
+   * @return \Drupal\Component\Render\MarkupInterface|string|array
+   *   The filtered text, text, or a render array containing 'processed_text'.
    *
    * @see \Drupal\webform\Plugin\WebformHandler\EmailWebformHandler::getMessage
    */
-  public static function checkMarkup($text) {
+  public static function checkMarkup($text, $render = FALSE) {
     // Remove <p> tags around a single line of text, which creates minor
     // margin issues.
     if (\Drupal::config('webform.settings')->get('html_editor.tidy')) {
@@ -228,17 +228,27 @@ class WebformHtmlEditor extends FormElement {
     }
 
     if ($format = \Drupal::config('webform.settings')->get('html_editor.format')) {
-      return [
-        '#type' => 'processed_text',
-        '#text' => $text,
-        '#format' => $format,
-      ];
+      if ($render) {
+        return check_markup($text, $format);
+      }
+      else {
+        return [
+          '#type' => 'processed_text',
+          '#text' => $text,
+          '#format' => $format,
+        ];
+      }
     }
     else {
-      return [
-        '#markup' => $text,
-        '#allowed_tags' => static::getAllowedTags(),
-      ];
+      if ($render) {
+        return $text;
+      }
+      else {
+        return [
+          '#markup' => $text,
+          '#allowed_tags' => static::getAllowedTags(),
+        ];
+      }
     }
   }
 

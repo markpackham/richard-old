@@ -129,31 +129,28 @@ function _webform_update_webform_settings() {
 }
 
 /**
- * Update webform handler configuration and settings to reflect changes in a handler's default configuration.
+ * Update webform handler setting to reflect changes in a handler's default configuration.
  *
  * Must be called by passing in the handler's class using ::class.
  *
  * Example usage:
  * @code
- * _webform_update_webform_handler_configuration();
- * _webform_update_webform_handler_configuration(EmailWebformHandler::class);
+ * _webform_update_webform_handler_class_settings(EmailWebformHandler::class);
  * @endcode
  *
  * @param string $handler_class
- *   A handler class instance. If NULL all handlers will be updated.
- *   Defaults to NULL.
+ *   A handler class instance.
  *
  * @see \Drupal\webform\Plugin\WebformHandlerInterface
  */
-function _webform_update_webform_handler_configuration($handler_class = NULL) {
+function _webform_update_webform_handler_class_settings($handler_class) {
   /** @var \Drupal\webform\WebformInterface[] $webforms */
   $webforms = Webform::loadMultiple();
   foreach ($webforms as $webform) {
     $has_handler = FALSE;
     $handlers = $webform->getHandlers();
     foreach ($handlers as $handler) {
-      $is_handler_class = ($handler_class === NULL || $handler instanceof $handler_class);
-      if ($is_handler_class) {
+      if ($handler instanceof $handler_class) {
         $has_handler = TRUE;
         $configuration = $handler->getConfiguration();
 

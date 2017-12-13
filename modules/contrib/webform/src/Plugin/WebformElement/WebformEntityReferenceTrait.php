@@ -38,7 +38,7 @@ trait WebformEntityReferenceTrait {
   /**
    * {@inheritdoc}
    */
-  protected function formatHtmlItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
+  public function formatHtmlItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
     $entity = $this->getTargetEntity($element, $webform_submission, $options);
     if (!$entity) {
       return '';
@@ -69,7 +69,7 @@ trait WebformEntityReferenceTrait {
   /**
    * {@inheritdoc}
    */
-  protected function formatTextItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
+  public function formatTextItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
     $entity = $this->getTargetEntity($element, $webform_submission, $options);
     if (!$entity) {
       return '';

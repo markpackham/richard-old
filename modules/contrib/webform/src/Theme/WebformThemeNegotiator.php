@@ -44,7 +44,7 @@ class WebformThemeNegotiator implements ThemeNegotiatorInterface {
    * {@inheritdoc}
    */
   public function applies(RouteMatchInterface $route_match) {
-    if (!in_array($route_match->getRouteName(), ['entity.webform.canonical', 'entity.webform.test_form', 'entity.webform.confirmation'])) {
+    if ($route_match->getRouteName() !== 'entity.webform.canonical' && $route_match->getRouteName() !== 'entity.webform.test_form') {
       return FALSE;
     }
 

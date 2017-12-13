@@ -6,7 +6,6 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Query\AlterableInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -16,7 +15,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\AccountProxyInterface;
-use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -75,11 +73,6 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
 
     $definitions = [];
     foreach ($field_definitions as $field_name => $field_definition) {
-      // Exclude the 'map' field type which is used by the metatag.module.
-      if ($field_definition->getType() === 'map') {
-        continue;
-      }
-
       $definitions[$field_name] = [
         'title' => $field_definition->getLabel(),
         'name' => $field_name,
@@ -203,14 +196,9 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
   /**
    * {@inheritdoc}
    */
-  public function getTotal(WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, array $options = []) {
-    // Default total to only look at completed submissions.
-    $options += [
-      'in_draft' => FALSE,
-    ];
-
+  public function getTotal(WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, $in_draft = FALSE) {
     $query = $this->getQuery();
-    $this->addQueryConditions($query, $webform, $source_entity, $account, $options);
+    $this->addQueryConditions($query, $webform, $source_entity, $account, ['in_draft' => $in_draft]);
 
     // Issue: Query count method is not working for SQL Lite.
     // return $query->count()->execute();
@@ -256,7 +244,6 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
     $options += [
       'check_source_entity' => FALSE,
       'in_draft' => NULL,
-      'interval' => NULL,
     ];
 
     if ($webform) {
@@ -289,10 +276,6 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
 
     if ($options['in_draft'] !== NULL) {
       $query->condition('in_draft', $options['in_draft']);
-    }
-
-    if ($options['interval']) {
-      $query->condition('completed', \Drupal::time()->getRequestTime() - $options['interval'], '>');
     }
   }
 
@@ -407,14 +390,7 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
 
     $query->range(0, 1);
 
-    $submission = ($entity_ids = $query->execute()) ? $this->load(reset($entity_ids)) : NULL;
-
-    // If account is specified, we need make sure the user can view the submission.
-    if ($submission && $account && !$submission->access('view', $account)) {
-      return NULL;
-    }
-
-    return $submission;
+    return ($entity_ids = $query->execute()) ? $this->load(reset($entity_ids)) : NULL;
   }
 
   /****************************************************************************/
@@ -739,6 +715,33 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
       $this->setAnonymousSubmission($entity);
     }
 
+    // DEBUG: dsm($entity->getState());
+    // Log transaction.
+    $webform = $entity->getWebform();
+    $context = [
+      '@id' => $entity->id(),
+      '@form' => $webform->label(),
+      'link' => $entity->toLink($this->t('Edit'), 'edit-form')->toString(),
+    ];
+    switch ($entity->getState()) {
+      case WebformSubmissionInterface::STATE_DRAFT:
+        \Drupal::logger('webform')->notice('@form: Submission #@id draft saved.', $context);
+        break;
+
+      case WebformSubmissionInterface::STATE_UPDATED:
+        \Drupal::logger('webform')->notice('@form: Submission #@id updated.', $context);
+        break;
+
+      case WebformSubmissionInterface::STATE_COMPLETED:
+        if ($result === SAVED_NEW) {
+          \Drupal::logger('webform')->notice('@form: Submission #@id created.', $context);
+        }
+        else {
+          \Drupal::logger('webform')->notice('@form: Submission #@id completed.', $context);
+        }
+        break;
+    }
+
     return $result;
   }
 
@@ -748,34 +751,6 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
   protected function doPostSave(EntityInterface $entity, $update) {
     /** @var \Drupal\webform\WebformSubmissionInterface $entity */
     parent::doPostSave($entity, $update);
-
-    // Log transaction.
-    $webform = $entity->getWebform();
-    if (!$entity->getWebform()->getSetting('results_disabled')) {
-      $context = [
-        '@id' => $entity->id(),
-        '@form' => $webform->label(),
-        'link' => $entity->toLink($this->t('Edit'), 'edit-form')->toString(),
-      ];
-      switch ($entity->getState()) {
-        case WebformSubmissionInterface::STATE_DRAFT:
-          \Drupal::logger('webform')->notice('@form: Submission #@id draft saved.', $context);
-          break;
-
-        case WebformSubmissionInterface::STATE_UPDATED:
-          \Drupal::logger('webform')->notice('@form: Submission #@id updated.', $context);
-          break;
-
-        case WebformSubmissionInterface::STATE_COMPLETED:
-          if ($update) {
-            \Drupal::logger('webform')->notice('@form: Submission #@id completed.', $context);
-          }
-          else {
-            \Drupal::logger('webform')->notice('@form: Submission #@id created.', $context);
-          }
-          break;
-      }
-    }
 
     // Log submission events.
     if ($entity->getWebform()->hasSubmissionLog()) {
@@ -836,27 +811,6 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
   /**
    * {@inheritdoc}
    */
-  public function resave(EntityInterface $entity) {
-    /** @var \Drupal\webform\WebformSubmissionInterface $entity */
-
-    $transaction = $this->database->startTransaction();
-    try {
-      $return = $this->doSave($entity->id(), $entity);
-
-      // Ignore replica server temporarily.
-      db_ignore_replica();
-      return $return;
-    }
-    catch (\Exception $e) {
-      $transaction->rollBack();
-      watchdog_exception($this->entityTypeId, $e);
-      throw new EntityStorageException($e->getMessage(), $e->getCode(), $e);
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function delete(array $entities) {
     /** @var \Drupal\webform\WebformSubmissionInterface $entity */
     if (!$entities) {
@@ -875,18 +829,6 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
     foreach ($entities as $entity) {
       $this->invokeWebformElements('postDelete', $entity);
       $this->invokeWebformHandlers('postDelete', $entity);
-    }
-
-    // Remove the webform submission specific file directory for all stream wrappers.
-    // @see \Drupal\webform\Plugin\WebformElement\WebformManagedFileBase
-    // @see \Drupal\webform\Plugin\WebformElement\WebformSignature
-    foreach ($entities as $entity) {
-      $webform = $entity->getWebform();
-      $stream_wrappers = array_keys(\Drupal::service('stream_wrapper_manager')
-        ->getNames(StreamWrapperInterface::WRITE_VISIBLE));
-      foreach ($stream_wrappers as $stream_wrapper) {
-        file_unmanaged_delete_recursive($stream_wrapper . '://webform/' . $webform->id() . '/' . $entity->id());
-      }
     }
 
     // Delete submission log after all pre and post delete hooks are called.

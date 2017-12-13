@@ -19,7 +19,7 @@ class WebformAddress extends WebformCompositeBase {
   /**
    * {@inheritdoc}
    */
-  public static function getCompositeElements(array $element) {
+  public static function getCompositeElements() {
     $elements = [];
     $elements['address'] = [
       '#type' => 'textfield',
