@@ -1,102 +1,128 @@
 h1 {
-  font-size: 30px;
+    font-size: 30px;
 }
+
 h2 {
-  font-size: 21px;
+    font-size: 21px;
 }
+
 h3 {
-  font-size: 19px;
+    font-size: 19px;
 }
+
 img {
-  padding: 7px;
+    padding: 7px;
 }
+
 p, .geolocation-formatter-map-wrapper {
-  padding: 3px;
+    padding: 3px;
 }
+
 .footer {
-  padding-top: 15px;
-  padding-left: 20px;
+    padding-top: 15px;
+    padding-left: 20px;
 }
+
 #navbar {
-  padding-bottom: 20px;
-  padding-left: 5px;
+    padding-bottom: 20px;
+    padding-left: 5px;
 }
+
 #block-bootstrap-sub-views-block-articles-view-block-latest-articles-view-block p,
 .field--name-body,
 .paragraph {
-  padding: 10px 0px;
+    padding: 10px 0;
 }
-/*Site by Mark Packham */
-.packham {
-  font-size: 7px;
-  display: inline-block;
-  width: 100%;
-}
+
 #block-header-banner-block {
-  padding: 10px 5px;
+    padding: 10px 5px;
 }
+
 #edit-actions-submit {
-  margin: 10px 0px;
+    margin: 10px 0;
 }
+
 .page-header {
-  padding-bottom: 0px;
-  margin-bottom: 10px;
+    padding-bottom: 0;
+    margin-bottom: 10px;
 }
+
 .navbar-right {
-  float: left !important;
+    float: left !important;
 }
+
 .navbar-nav, ul.sf-menu a {
-  background-color: #ebf4bc;
-  border: 1px solid #23527c;
-  box-shadow: 1px 1px #838487;
+    background-color: #ebf4bc;
+    border: 1px solid #23527c;
+    box-shadow: 1px 1px #838487;
 }
+
 .navbar-nav, ul.sf-menu a, #block-bootstrap-sub-account-menu a, .region-footer .navbar-nav li a, #block-bootstrap-sub-copyrightfooterblock p {
-  font-size: 13px;
+    font-size: 13px;
 }
+
 ul.sf-menu a {
-  padding: 1em;
+    padding: 1em;
 }
+
 #block-bootstrap-sub-account-menu a {
-  color: #23527c;
+    color: #23527c;
 }
+
 #block-bootstrap-sub-account-menu a, .region-footer .navbar-nav li a {
-  padding: 10px;
+    padding: 10px;
 }
+
 #block-bootstrap-sub-copyrightfooterblock {
-  display: inline-block;
-  width: 100%;
+    display: inline-block;
+    width: 100%;
 }
+
 #block-bootstrap-sub-copyrightfooterblock p {
-  padding: 0px;
-  margin: 0px;
+    padding: 0;
+    margin: 0;
 }
+
 #block-bootstrap-sub-copyrightfooterblock a {
-  text-decoration: none;
+    text-decoration: none;
 }
+
 /*Hide footer menu on mobile*/
 @media (max-width: 479px) {
-  #block-bootstrap-sub-mainnavigation {
-    display: none;
-  }
+    #block-bootstrap-sub-mainnavigation {
+        display: none;
+    }
 }
+
 .well.region.region-sidebar-second {
-  padding: 16px 16px 0px 16px;
+    padding: 16px 16px 0 16px;
 }
+
 /* View Pages */
 .views-element-container label, .views-element-container .form-actions {
-  padding: 10px;
+    padding: 10px;
 }
+
 /* Homepage slideshow*/
 
 #block-bootstrap-sub-views-block-homepage-slide-view-block-block-1 {
-  padding-bottom: 20px;
+    padding-bottom: 20px;
 }
+
 @media (min-width: 480px) {
-  #block-bootstrap-sub-views-block-homepage-slide-view-block-block-1 {
-    width: 75%;
-  }
+    #block-bootstrap-sub-views-block-homepage-slide-view-block-block-1 {
+        width: 75%;
+    }
 }
+
 /*Webform on Contact*/
 #edit-phone {
-  display: block;
+    display: block;
+}
+
+/*Site by Mark Packham at bottom of page */
+.packham {
+    font-size: 7px;
+    display: inline-block;
+    width: 100%;
 }

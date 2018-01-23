@@ -12,21 +12,6 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 
 /**
- * Loads all dependencies from the database.
- *
- * The result can be filtered by providing an entity type and a bundle name.
- */
-function conditional_fields_load_dependencies_entity($entity_type = NULL, $bundle = NULL) {
-  $dependencies = \Drupal::entityTypeManager()
-    ->getStorage('conditional_field')
-    ->loadByProperties([
-      'entity_type' => $entity_type,
-      'bundle' => $bundle,
-    ]);
-  return $dependencies;
-}
-
-/**
  * An after_build callback for forms with dependencies.
  *
  * Builds and attaches #states properties to dependent fields, adds additional
@@ -216,8 +201,9 @@ function conditional_fields_get_state(EntityFormDisplayInterface $form_display, 
     // selected on manage dependency tab. As temporary solution put cardinality
     // in $options. Format of #states depend on field widget and field
     // cardinality (it can be like value: string and value: [array]).
-    $field_config = FieldStorageConfig::loadByName($form_display->getTargetEntityTypeId(), $dependee);
-    $options['field_cardinality'] = $field_config->getCardinality();
+    if ($field_config = FieldStorageConfig::loadByName($form_display->getTargetEntityTypeId(), $dependee)) {
+      $options['field_cardinality'] = $field_config->getCardinality();
+    }
 
     // Execute special handler for fields that need further processing.
     // The handler has no return value. Modify the $state parameter by
